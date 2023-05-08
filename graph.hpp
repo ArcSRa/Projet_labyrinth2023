@@ -7,6 +7,8 @@ using namespace std;
 class Graphe {
 private:
     unordered_map<int, unordered_set<int>> A;
+    int w;
+    int h;
     bool oriente;
 
 public:
@@ -14,6 +16,12 @@ public:
 
     void construire(unordered_map<int, unordered_set<int>> A) {
         this->A = A;
+        for (auto& [x, V] : A) {
+            this->w = std::max(this->w, x + 1);
+            for (auto& y : V) {
+                this->h = max(this->h, y + 1);
+            }
+        }
     }
 
     void ajouter_sommet(int x) {
