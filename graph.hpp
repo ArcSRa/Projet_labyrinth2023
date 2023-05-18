@@ -4,7 +4,7 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-   class Graphe {
+class Graphe {
 private:
     unordered_map<int, unordered_set<int>> A;
     int w;
