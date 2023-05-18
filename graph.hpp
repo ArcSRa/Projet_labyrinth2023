@@ -15,6 +15,8 @@ public:
     Graphe(bool oriente = true) : oriente(oriente) {}
 
     void construire(unordered_map<int, unordered_set<int>> A) {
+        this->w=0;
+        this->h=0;
         this->A = A;
         for (auto& [x, V] : A) {
             this->w = std::max(this->w, x + 1);
