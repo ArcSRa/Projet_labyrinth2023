@@ -16,6 +16,8 @@ public:
 
     void construire(unordered_map<int, unordered_set<int>> A) {
         this->A = A;
+        this->h =0 ;
+        this->w=0;
         for (auto& [x, V] : A) {
             this->w = std::max(this->w, x + 1);
             for (auto& y : V) {
