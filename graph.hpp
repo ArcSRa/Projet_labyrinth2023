@@ -18,12 +18,16 @@ public:
         this->A = A;
         this->h =0 ;
         this->w=0;
-        for (auto& [x, V] : A) {
-            this->w = max(this->w, x + 1);
-            for (auto& y : V) {
-                this->h = max(this->h, y + 1);
-            }
+        for (auto it = A.begin(); it != A.end(); ++it) {
+        int x = it->first;
+        const unordered_set<int>& V = it->second;
+
+        this->w =max(this->w, x + 1);
+
+        for (auto y : V) {
+            this->h =max(this->h, y + 1);
         }
+    }
     }
 
     void ajouter_sommet(int x) {
