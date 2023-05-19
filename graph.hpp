@@ -19,7 +19,7 @@ public:
         this->h =0 ;
         this->w=0;
         for (auto& [x, V] : A) {
-            this->w = std::max(this->w, x + 1);
+            this->w = max(this->w, x + 1);
             for (auto& y : V) {
                 this->h = max(this->h, y + 1);
             }
@@ -102,10 +102,10 @@ public:
         return parcours_prof(x, vus).find(y) != vus.end();
     }
 //largeur
-    std::unordered_map<int, int> parcours_larg(int s) {
-        std::unordered_map<int, int> dist;
-        std::unordered_set<int> cour;
-        std::unordered_set<int> suiv;
+   unordered_map<int, int> parcours_larg(int s) {
+       unordered_map<int, int> dist;
+       unordered_set<int> cour;
+       unordered_set<int> suiv;
         cour.insert(s);
         int d = 0;
         while (!cour.empty()) {
@@ -127,10 +127,10 @@ public:
         return dist;
     }
 
-    std::unordered_map<int, int> parcours_larg_chemin(int s) {
-        std::unordered_map<int, int> vus;
-        std::unordered_set<int> cour;
-        std::unordered_set<int> suiv;
+   unordered_map<int, int> parcours_larg_chemin(int s) {
+       unordered_map<int, int> vus;
+       unordered_set<int> cour;
+       unordered_set<int> suiv;
         cour.insert(s);
         vus[s] = -1;
         while (!cour.empty()) {
@@ -151,9 +151,9 @@ public:
         return vus;
     }
 
-    std::vector<int> chemins_larg(int x, int y) {
-        std::unordered_map<int, int> vus = parcours_larg_chemin(x);
-        std::vector<int> c;
+   vector<int> chemins_larg(int x, int y) {
+       unordered_map<int, int> vus = parcours_larg_chemin(x);
+       vector<int> c;
         if (vus.find(y) != vus.end()) {
             int s = y;
             while (s != -1) {
@@ -161,12 +161,12 @@ public:
                 s = vus[s];
             }
         }
-        std::reverse(c.begin(), c.end());
+       reverse(c.begin(), c.end());
         return c;
     }
 
     int distance(int x, int y) {
-        std::unordered_map<int, int> dist = parcours_larg(x);
+       unordered_map<int, int> dist = parcours_larg(x);
         return (dist.find(y) != dist.end()) ? dist[y] : -1;
     }
 };
