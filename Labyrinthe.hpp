@@ -17,11 +17,10 @@ class Labyrinthe: public Graphe {
         this->reset();
               //Tableau de la représentation du labyrinthe en mode semi-graphique
         repr = vector<vector<char>>(2 * h + 1, vector<char>(2 * w + 1, '*'));
-
         this->effacer_repr();
         //Coordonnées des ouvertures vers l’extérieur
        // this->ouvertures = [];
-    }
+    } 
 
     void reset()
     {
