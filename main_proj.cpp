@@ -1,4 +1,5 @@
-#include "graph.hpp"
+
+#include "Labyrinthe.hpp"
 using namespace std;
 int main() {
     Graphe g(true); 
