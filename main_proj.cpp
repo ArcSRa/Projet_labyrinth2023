@@ -1,10 +1,10 @@
-
-#include "Labyrinthe.hpp"
+#include "graph.hpp"
+//#include "Labyrinthe.hpp"
 using namespace std;
 int main() {
     Graphe g(true); 
 
-
+    
     g.ajouter_sommet(1);
     g.ajouter_sommet(2);
     g.ajouter_sommet(3);
@@ -59,6 +59,6 @@ int main() {
 
     int distance = g.distance(1, 4);
     cout << "Distance entre 1 et 4 : " << distance << endl;  //affiche 3
-
+    std::cout << g << std::endl;
     return 0;
 }

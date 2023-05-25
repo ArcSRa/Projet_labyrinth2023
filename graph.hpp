@@ -4,10 +4,12 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <iterator>
 using namespace std;
 class Graphe {
 protected:
-    unordered_map<int, unordered_set<int>> A;
+  //  unordered_map<pair<int,int>, unordered_set<int>> A;
+     unordered_map<int, unordered_set<int>> A;
     int w;
     int h;
     bool oriente;
@@ -15,7 +17,9 @@ protected:
 public:
     Graphe(bool oriente = true) : oriente(oriente) {}
 
+//    void construire(unordered_map<pair<int,int>, unordered_set<int>> A) {
     void construire(unordered_map<int, unordered_set<int>> A) {
+
         this->A = A;
         this->h =0 ;
         this->w=0;
@@ -174,4 +178,15 @@ public:
        unordered_map<int, int> dist = parcours_larg(x);
         return (dist.find(y) != dist.end()) ? dist[y] : -1;
     }
+       friend std::ostream& operator<<(std::ostream& os, const Graphe& graphe) {
+        for (const auto& [sommet, voisins] : graphe.A) {
+            os << sommet << " : ";
+            for (const auto& voisin : voisins) {
+                os << voisin << " ";
+            }
+            os << std::endl;
+        }
+        return os;
+    }
+
 };
