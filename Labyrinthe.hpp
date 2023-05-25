@@ -7,7 +7,7 @@ class Labyrinthe: public Graphe {
     private:
     int w;
     int h;
-    vector<vector<char>> repr;
+    vector<vector<string>> repr;
     vector<pair<int, int>> ouvertures;
    
     public:
@@ -17,7 +17,8 @@ class Labyrinthe: public Graphe {
         this->reset();
               //Tableau de la représentation du labyrinthe en mode semi-graphique
        // for(int c; c<2*this->h+1;c++){
-        this->repr = vector<vector<char>>(2 * this->h + 1, vector<char>(2*this->w + 1, '*'));
+     std::vector<std::vector<char>> repr(2 * h + 1, std::vector<char>(2 * w + 1, '*'));
+
 
        // }
         this->effacer_repr();
@@ -57,7 +58,7 @@ class Labyrinthe: public Graphe {
     {//murs
         for(int c=0;c<this->w;c++)
             {
-                repr[0][2*c+1]=coins[5];
+                this->repr[0][2*c+1]=coins[5];
             }
     }
 
