@@ -11,8 +11,10 @@ public:
 
 private:
     void on_button_clicked();
-
-    Gtk::SpinButton m_size_spin;
+    void on_close_button_clicked();
+    Gtk::Button m_close_button;
+    Gtk::Entry height;
+    Gtk::Entry width;
     Gtk::ComboBoxText m_algo_combo;
 };
 
