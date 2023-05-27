@@ -29,7 +29,7 @@ class Labyrinthe: public Graphe {
     Labyrinthe(int w,int h,TupleMap list):Graphe(w,h,false), w(w), h(h),A(list){
       this->reset();
               //Tableau de la représentation du labyrinthe en mode semi-graphique
-       // for(int c; c<2*this->h+1;c++){
+       
      vector<vector<char>> repr(2 * h + 1, vector<char>(2 * w + 1, '*'));
 
 
