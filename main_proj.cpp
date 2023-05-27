@@ -1,7 +1,7 @@
 #include "graph.hpp"
 
 int main() {
-    Graphe g;
+/*    Graphe g;
 
     // Construct the graph
     unordered_map<int, unordered_set<int>> A{
@@ -55,6 +55,39 @@ int main() {
     for (const auto& pair : distances) {
         cout << "Vertex: " << pair.first << ", Distance: " << pair.second << endl;
     }
+*/
 
+    Graphe g(5, 5, false); // Create a graph with width = 5, height = 5, and undirected edges
+
+    // Adding vertices
+    g.ajouter_sommet(make_tuple(0, 0));
+    g.ajouter_sommet(make_tuple(0, 1));
+    g.ajouter_sommet(make_tuple(1, 0));
+    g.ajouter_sommet(make_tuple(1, 1));
+    g.ajouter_sommet(make_tuple(2, 2));
+
+    // Adding edges
+    g.ajouter_arete(make_tuple(0, 0), make_tuple(0, 1));
+    g.ajouter_arete(make_tuple(0, 1), make_tuple(1, 1));
+    g.ajouter_arete(make_tuple(1, 0), make_tuple(1, 1));
+    g.ajouter_arete(make_tuple(0, 0), make_tuple(1, 0));
+    g.ajouter_arete(make_tuple(1, 1), make_tuple(2, 2));
+
+    // Get all vertices
+    TupleMap graph = g.getGraph();
+    cout << "Vertices:" << endl;
+    for (const auto& vertex : graph) {
+        Tuple v = vertex.first;
+        cout << "(" << get<0>(v) << ", " << get<1>(v) << ")" << endl;
+    }
+
+    // Get all edges
+    vector<Arete> edges = g.aretes();
+    cout << "Edges:" << endl;
+    for (const auto& edge : edges) {
+        Tuple u = edge.first;
+        Tuple v = edge.second;
+        cout << "(" << get<0>(u) << ", " << get<1>(u) << ") -> (" << get<0>(v) << ", " << get<1>(v) << ")" << endl;
+    }
     return 0;
 }
