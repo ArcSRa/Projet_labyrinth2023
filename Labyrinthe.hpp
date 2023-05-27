@@ -103,9 +103,9 @@ class Labyrinthe: public Graphe {
         }
 
         // Les ouvertures vers l'extérieur
-        for (const auto& o : ouvertures) {
-            int l = o.first;
-            int c = o.second;
+        for (const auto& ouv : ouvertures) {
+            int l = ouv.first;
+            int c = ouv.second;
             if (c == 0) {
                 repr[2 * l + 1][2 * c] = ' ';
             } else if (c == this->w - 1) {
