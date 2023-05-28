@@ -55,7 +55,7 @@ void MainWindow::on_button_clicked()
     }
     catch (const std::exception& e) {
         Gtk::MessageDialog dialog(*this, "Erreur", false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
-        dialog.set_secondary_text("Hauter et largeur svp");
+        dialog.set_secondary_text("Hauteur et largeur svp");
         dialog.run();
         return;
     }
