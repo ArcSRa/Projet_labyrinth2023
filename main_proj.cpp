@@ -1,4 +1,4 @@
-#include "graph.hpp"
+#include "Labyrinthe.hpp"
 //
 int main() {
 /*    Graphe g;
@@ -89,8 +89,8 @@ int main() {
         Tuple v = edge.second;
         cout << "(" << get<0>(u) << ", " << get<1>(u) << ") -> (" << get<0>(v) << ", " << get<1>(v) << ")" << endl;
     }*/
-    // Create a TupleMap to represent the graph
-    cellMap graph = {
+
+    /*cellMap graph = {
         {make_pair(0,0),{make_pair(0,1),make_pair(1,0)}},
         {make_pair(0,1),{make_pair(0,0),make_pair(1,1),make_pair(0,2)}},
         {make_pair(0,2),{make_pair(0,1),make_pair(1,2)}},
@@ -158,6 +158,23 @@ int main() {
     for (const auto& v : cheminsSet) {
         cout << "(" << get<0>(v) << ", " << get<1>(v) << ") ";
     }
-    cout << endl;
+    cout << endl;*/
+
+    Labyrinthe lab(10, 10);
+    lab.reset();
+    cout << lab;
+
+    cellMap map = lab.dic_adjac(10, 10);
+    for (const auto& pair : map) {
+        const auto& cell = pair.first;
+        const auto& cellSet = pair.second;
+
+        cout << "(" << get<0>(cell) << ", " << get<1>(cell) << "): ";
+        for (const auto& value : cellSet) {
+            cout << "(" << get<0>(value) << ", " << get<1>(value) << ") ";
+        }
+        cout << endl;
+    }
+
     return 0;
 }

@@ -68,6 +68,10 @@ public:
         this->graph[x].insert(v);
     }
 
+    void clearGraph() {
+        this->graph.clear();
+    }
+
     void construire(cellMap graph) {
         setGraph(graph);
         setWidth(0);
