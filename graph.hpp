@@ -77,7 +77,9 @@ public:
         return this->graph[y].find(x) != this->graph[y].end();
     }
 
-    cellSet parcours_prof(cell s, cellSet vus=cellSet()) {
+    cellSet parcours_prof(cell s, cellSet &vus) {
+      
+      
         if (vus.find(s) == vus.end()) {
             vus.insert(s);
             for (cell v : this->voisins(s)) {
@@ -87,7 +89,7 @@ public:
         return vus;
     }
 
-    cellSet parcours_ch(cell s, cell ori=None, cellSet vus=cellSet({None})) {
+    cellSet parcours_ch(cell s, cell ori, cellSet& vus) {
         if (vus.find(s) == vus.end()) {
             vus.insert(ori);
             for (cell v : voisins(s)) {
@@ -98,7 +100,9 @@ public:
     }
 
     cellSet chemins(cell x, cell y) {
-        cellSet vus = this->parcours_ch(x);
+        cellSet val;
+        cell val2;
+        cellSet vus = this->parcours_ch(x,val2,val);
         cellSet c=cellSet();
         if (vus.find(y) != vus.end()) {
             for (cellSet::iterator it=vus.begin();it!=vus.find(y);it++){
@@ -110,7 +114,8 @@ public:
     }
     
     bool existe_chemin(cell x, cell y) {
-        cellSet vus = this->parcours_prof(x);
+        cellSet val;
+        cellSet vus = this->parcours_prof(x,val);
         return vus.find(y) != vus.end();
     }
 

@@ -72,25 +72,27 @@ cellMap graph ={
 
     bool isArete = g.arete(make_pair(0, 0), make_pair(1, 2));
     cout << "Is (0, 0) - (1, 2) an edge? " << (isArete ? "Yes" : "No") << endl;
-
-    cellSet parcoursProfSet = g.parcours_prof(make_pair(0, 0));
+    cellSet vus;
+    cellSet parcoursProfSet = g.parcours_prof(make_pair(0, 0),vus);
     cout << "Parcours prof starting from (0, 0): ";
     for (const auto& v : parcoursProfSet) {
-        cout << "(" << get<0>(v) << ", " << get<1>(v) << ") ";
+        
+        cout << "(" << v.first<< ", " << v.second << ") ";
     }
     cout << endl;
-
-    cellSet parcoursChSet = g.parcours_ch(make_pair(0, 0));
+    cellSet val1;
+    cell val2;
+    cellSet parcoursChSet = g.parcours_ch(make_pair(0, 0),val2,val1);
     cout << "Parcours ch starting from (0, 0): ";
     for (const auto& v : parcoursChSet) {
-        cout << "(" << get<0>(v) << ", " << get<1>(v) << ") ";
+        cout << "(" << v.first << ", " << v.second << ") ";
     }
     cout << endl;
 
     cellSet cheminsSet = g.chemins(make_pair(0, 0), make_pair(2, 2));
     cout << "Chemins from (0, 0) to (2, 2): ";
     for (const auto& v : cheminsSet) {
-        cout << "(" << get<0>(v) << ", " << get<1>(v) << ") ";
+        cout << "(" << v.first << ", " << v.second << ") ";
     }
     cout << endl;
     return 0;
