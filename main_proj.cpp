@@ -1,5 +1,5 @@
-#include "graph.hpp"
-//
+//#include "graph.hpp"
+#include "Labyrinthe.hpp"
 int main() {
 cellMap graph ={
     {make_pair(0, 0), {make_pair(0, 1), make_pair(1, 0)}},
@@ -54,19 +54,19 @@ cellMap graph ={
         cout << endl;
     }
 
-    cellSet voisinsSet = g.voisins(make_pair(1, 1));
+    cellSet voisinsSet = g.getVoisins(make_pair(1, 1));
     cout << "Voisins of (1, 1): ";
     for (const auto& v : voisinsSet) {
         cout << "(" << get<0>(v) << ", " << get<1>(v) << ") ";
     }
     cout << endl;
 
-    vector<Arete> aretesVec = g.aretes();
+    Aretes aretesVec = g.aretes();
     cout << "Aretes: ";
     for (const auto& a : aretesVec) {
         const auto& u = a.first;
         const auto& v = a.second;
-        cout << "(" << get<0>(u) << ", " << get<1>(u) << ") - (" << get<0>(v) << ", " << get<1>(v) << ") ///";
+        cout << "(" << u.first << ", " << u.second << ") - (" << v.first << ", " << v.second << ") ///";
     }
     cout << endl;
 
@@ -94,6 +94,9 @@ cellMap graph ={
     for (const auto& v : cheminsSet) {
         cout << "(" << v.first << ", " << v.second << ") ";
     }
+    Labyrinthe lab(4,5,graph);
+    
+    
     cout << endl;
     return 0;
 }
