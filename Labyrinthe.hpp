@@ -1,5 +1,5 @@
 #include "graph.hpp"
-
+//
 //coins = [" ", "╶", "╵", "└", "╴", "─", "┘", "┴", "╷", "┌", "│", "├", "┐", "┬", "┤", "┼"] //A voir pour les caractères qu'on utilisera
 static const vector<string> coins = { " ", "═", "║", "╚", "═", "═", "╝", "╩", "║", "╔", "║", "╠", "╗", "╦", "╣", "╬" };
 
@@ -7,7 +7,7 @@ class Labyrinthe: public Graphe {
     private:
     int w;
     int h;
-    TupleMap A;
+    cellMap A;
     vector<vector<char>> repr;
     vector<pair<int, int>> ouvertures;
    
@@ -26,7 +26,7 @@ class Labyrinthe: public Graphe {
         //Coordonnées des ouvertures vers l’extérieur
        this->ouvertures = vector<pair<int, int>>();
     } 
-    Labyrinthe(int w,int h,TupleMap list):Graphe(w,h,false), w(w), h(h),A(list){
+    Labyrinthe(int w,int h,cellMap list):Graphe(w,h,false), w(w), h(h),A(list){
       this->reset();
               //Tableau de la représentation du labyrinthe en mode semi-graphique
        
@@ -40,15 +40,14 @@ class Labyrinthe: public Graphe {
 
     }
 
-    void reset()
-    {   
+    void reset() {   
         A.clear();
-    for(int l=0;l<this->h;l++){
-        for(int c=0;c<this->w;c++)
-            {tuple<int,int> coord(l,c);
-                this->ajouter_sommet(coord);}
-
-    }
+        for(int l=0;l<this->h;l++){
+            for(int c=0;c<this->w;c++){
+                cell coord(l,c);
+                this->ajouter_sommet(coord);
+            }
+        }
     }
     // void ToString(){
     //     this->construire_repr();
@@ -58,7 +57,8 @@ class Labyrinthe: public Graphe {
     //         s.append(''+l);
     //     }
     //}
-      friend ostream& operator<<(ostream& os,  Labyrinthe& labyrinthe) {
+
+    friend ostream& operator<<(ostream& os,  Labyrinthe& labyrinthe) {
         labyrinthe.construire_repr();
         for (const auto& ligne : labyrinthe.repr) {
             for (const auto& cell : ligne) {
@@ -68,7 +68,8 @@ class Labyrinthe: public Graphe {
         }
         return os;
     }
-   string construire_repr() {
+
+    string construire_repr() {
         string resultat;
         // Les murs
         for (int c = 0; c < this->w; c++) {
@@ -142,7 +143,7 @@ class Labyrinthe: public Graphe {
     unordered_map<pair<int,int>,unordered_set<int>> dic_adjac(int w, int h) {
     }
     
-    vector<pair<int,int>> murs_cellule(int cell)
+    set<Arete> murs_cellule(cell C)
         vector<pair<int,int>> coins=Graphe.aretes();
         for (const pair& coin : coins) {
             if (coin.first != cell || coin.second != cell) {
@@ -155,9 +156,4 @@ class Labyrinthe: public Graphe {
     
         Graphe.ajouter_arete
 */
-
-
-
-
-
 };

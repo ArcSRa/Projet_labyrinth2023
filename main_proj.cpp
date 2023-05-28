@@ -1,64 +1,99 @@
 #include "graph.hpp"
-//#include "Labyrinthe.hpp"
-using namespace std;
+//
 int main() {
-    Graphe g(true); 
+cellMap graph ={
+    {make_pair(0, 0), {make_pair(0, 1), make_pair(1, 0)}},
+    {make_pair(0, 1), {make_pair(0, 0), make_pair(1, 1)}},
+    {make_pair(0, 2), {make_pair(1, 2), make_pair(0, 3)}},
+    {make_pair(0, 3), {make_pair(0, 2), make_pair(1, 3)}},
+    {make_pair(1, 0), {make_pair(0, 0), make_pair(2, 0)}},
+    {make_pair(1, 1), {make_pair(0, 1), make_pair(1, 2)}},
+    {make_pair(1, 2), {make_pair(1, 1), make_pair(0, 2)}},
+    {make_pair(1, 3), {make_pair(0, 3), make_pair(2, 3)}},
+    {make_pair(2, 0), {make_pair(1, 0), make_pair(2, 1)}},
+    {make_pair(2, 1), {make_pair(2, 0)}},
+    {make_pair(2, 2), {make_pair(2, 3), make_pair(3, 2)}},
+    {make_pair(2, 3), {make_pair(1, 3), make_pair(2, 2), make_pair(3, 3)}},
+    {make_pair(3, 0), {make_pair(3, 1), make_pair(4, 0)}},
+    {make_pair(3, 1), {make_pair(3, 0), make_pair(3, 2)}},
+    {make_pair(3, 2), {make_pair(3, 1), make_pair(2, 2)}},
+    {make_pair(3, 3), {make_pair(2, 3)}},
+    {make_pair(4, 0), {make_pair(3, 0), make_pair(4, 1)}},
+    {make_pair(4, 1), {make_pair(4, 0), make_pair(4, 2)}},
+    {make_pair(4, 2), {make_pair(4, 1), make_pair(4, 3)}},
+    {make_pair(4, 3), {make_pair(4, 2)}}
+};
+    // Create a TupleMap to represent the graph
+    cellMap graph2 = {
+        {make_pair(0,0),{make_pair(0,1),make_pair(1,0)}},
+        {make_pair(0,1),{make_pair(0,0),make_pair(1,1),make_pair(0,2)}},
+        {make_pair(0,2),{make_pair(0,1),make_pair(1,2)}},
+        {make_pair(1,0),{make_pair(0,0),make_pair(1,1)}},
+        {make_pair(1,1),{make_pair(1,0),make_pair(0,1),make_pair(1,2)}},
+        {make_pair(1,2),{make_pair(0,2),make_pair(1,1)}}
+    };
 
-    
-    g.ajouter_sommet(1);
-    g.ajouter_sommet(2);
-    g.ajouter_sommet(3);
-    g.ajouter_sommet(4);
-    // On a donc 1  2
-    //           3  4
+    // Create an instance of the Graphe class
+    Graphe g(0, 0);
 
-    g.ajouter_arete(1, 2);
-    g.ajouter_arete(2, 3);
-    g.ajouter_arete(3, 1);
-    g.ajouter_arete(3, 4);
+    // Use the construire method to build the graph
+    g.construire(graph);
 
-  
-    unordered_set<int> voisins = g.voisins(3);
-    cout << "Voisins de 3 : ";
-    for (int v : voisins) {
-        cout << v << " ";
+    // Retrieve the built graph using getGraph method
+    cellMap retrievedGraph = g.getGraph();
+
+    // Print the retrieved graph
+    for (const auto& pair : retrievedGraph) {
+        const auto& cell = pair.first;
+        const auto& cellSet = pair.second;
+
+        cout << "(" << get<0>(cell) << ", " << get<1>(cell) << "): ";
+        for (const auto& value : cellSet) {
+            cout << "(" << get<0>(value) << ", " << get<1>(value) << ") ";
+        }
+        cout << endl;
+    }
+
+    cellSet voisinsSet = g.voisins(make_pair(1, 1));
+    cout << "Voisins of (1, 1): ";
+    for (const auto& v : voisinsSet) {
+        cout << "(" << get<0>(v) << ", " << get<1>(v) << ") ";
     }
     cout << endl;
 
-  
-    bool existeArete = g.arete(1, 2);
-    cout << "Il existe une arête entre 1 et 2 : " << (existeArete ? "Oui" : "Non") << endl;  //affiche non
-
-
-    unordered_set<int> parcoursProf = g.parcours_prof(1);
-    cout << "Parcours en profondeur à partir de 1 : ";// affiche  1 0
-    for (int v : parcoursProf) {
-        cout << v << " ";
-    } 
-    cout << endl;
-
- 
-    unordered_map<int, int> parcoursLarg = g.parcours_larg_chemin(1);
-    cout << "Parcours en largeur à partir de 1 : " << endl;
-    for (const auto& pair : parcoursLarg) {
-        cout << pair.first << " : " << pair.second << endl;
-    }/*Afiche  4 : 3
-                3 : 2
-                2 : 1
-                1 : -1  //pb
-*/
-
- 
-    vector<int> chemins = g.chemins(1, 4);
-    cout << "Chemins entre 1 et 4 : "; //Chemins entre 1 et 4 : 0 
-    for (int v : chemins) {
-        cout << v << " ";
+    vector<Arete> aretesVec = g.aretes();
+    cout << "Aretes: ";
+    for (const auto& a : aretesVec) {
+        const auto& u = a.first;
+        const auto& v = a.second;
+        cout << "(" << get<0>(u) << ", " << get<1>(u) << ") - (" << get<0>(v) << ", " << get<1>(v) << ") ///";
     }
     cout << endl;
 
+    bool isArete = g.arete(make_pair(0, 0), make_pair(1, 2));
+    cout << "Is (0, 0) - (1, 2) an edge? " << (isArete ? "Yes" : "No") << endl;
+    cellSet vus;
+    cellSet parcoursProfSet = g.parcours_prof(make_pair(0, 0),vus);
+    cout << "Parcours prof starting from (0, 0): ";
+    for (const auto& v : parcoursProfSet) {
+        
+        cout << "(" << v.first<< ", " << v.second << ") ";
+    }
+    cout << endl;
+    cellSet val1;
+    cell val2;
+    cellSet parcoursChSet = g.parcours_ch(make_pair(0, 0),val2,val1);
+    cout << "Parcours ch starting from (0, 0): ";
+    for (const auto& v : parcoursChSet) {
+        cout << "(" << v.first << ", " << v.second << ") ";
+    }
+    cout << endl;
 
-    int distance = g.distance(1, 4);
-    cout << "Distance entre 1 et 4 : " << distance << endl;  //affiche 3
-    std::cout << g << std::endl;
+    cellSet cheminsSet = g.chemins(make_pair(0, 0), make_pair(2, 2));
+    cout << "Chemins from (0, 0) to (2, 2): ";
+    for (const auto& v : cheminsSet) {
+        cout << "(" << v.first << ", " << v.second << ") ";
+    }
+    cout << endl;
     return 0;
 }
