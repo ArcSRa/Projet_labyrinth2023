@@ -1,3 +1,0 @@
-/home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/CMakeFiles/rebuild_cache.dir
-/home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/CMakeFiles/edit_cache.dir
-/home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/CMakeFiles/testcpp.dir
