@@ -24,7 +24,7 @@ public:
     
     Graphe(int w, int h, bool oriented = true) : width(w), height(h), oriented(oriented) {}
 
-    cellMap getGraph(){
+    cellMap& getGraph(){
         return this->graph;
     }
 
@@ -66,6 +66,10 @@ public:
 
     void insertVoisins(cell x, cell v){
         this->graph[x].insert(v);
+    }
+
+    void clearGraph() {
+        this->graph.clear();
     }
 
     void construire(cellMap graph) {
@@ -113,7 +117,7 @@ public:
         return getVoisins(y).find(x) != getVoisins(y).end();
     }
 
-    cellSet parcours_prof(cell s, cellSet &vus) {
+    cellSet parcours_prof(cell s, cellSet& vus) {
         if (vus.find(s) == vus.end()) {
             vus.insert(s);
             for (cell v : getVoisins(s)) {
@@ -134,9 +138,9 @@ public:
     }
 
     cellSet chemins(cell x, cell y) {
-        cellSet val1;
-        cell val2;
-        cellSet vus = this->parcours_ch(x,val2,val1);
+        cell val1;
+        cellSet val2;
+        cellSet vus = this->parcours_ch(x,val1,val2);
         cellSet c=cellSet();
         if (vus.find(y) != vus.end()) {
             for (cellSet::iterator it=vus.begin();it!=vus.find(y);it++){
