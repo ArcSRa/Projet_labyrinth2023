@@ -26,6 +26,7 @@ class Labyrinthe: public Graphe {
         //Coordonnées des ouvertures vers l’extérieur
        this->ouvertures = vector<pair<int, int>>();
     } 
+    
     Labyrinthe(int w,int h,cellMap list):Graphe(w,h,false), w(w), h(h),A(list){
       this->reset();
               //Tableau de la représentation du labyrinthe en mode semi-graphique
@@ -49,6 +50,7 @@ class Labyrinthe: public Graphe {
             }
         }
     }
+
     // void ToString(){
     //     this->construire_repr();
     //     string s;
@@ -139,21 +141,37 @@ class Labyrinthe: public Graphe {
 
     }
 
-/*
-    unordered_map<pair<int,int>,unordered_set<int>> dic_adjac(int w, int h) {
-    }
-    
-    set<Arete> murs_cellule(cell C)
-        vector<pair<int,int>> coins=Graphe.aretes();
-        for (const pair& coin : coins) {
-            if (coin.first != cell || coin.second != cell) {
-                coins.erase(coin);
+    cellMap dic_adjac(int w, int h) {
+        cellMap Dico;
+        for (int i=0; i<h; i++){
+            for (int j=0; j<w; j++){
+                cellSet voisins = cellSet();
+                cell haut = make_pair(i-1,j);
+                cell gauche = make_pair(i,j-1);
+                cell bas = make_pair(i+1,j);
+                cell droite = make_pair(i,j+1);
+                if (i-1>0) voisins.insert(haut);
+                if (j-1>0) voisins.insert(gauche);
+                if (i+1<h) voisins.insert(bas);
+                if (j+1<w) voisins.insert(droite);
+                Dico[make_pair(i,j)]=voisins;
             }
         }
-    unordered_set<int> voisins_cellule(int cell)
-        
-    void ouvrir_passage(x, y)
+        return Dico;
+    }
     
-        Graphe.ajouter_arete
-*/
+    Aretes murs_cellule(cell C) {
+        Aretes murs;
+        cellSet voisins = voisins_cellule(C);
+        for (cell c : voisins) murs.insert(C,c);
+        return murs;
+    }
+        
+    cellSet voisins_cellule(cell C){
+        return dic_adjac(this->getWidth(),this->getHeight())[C];
+    }
+        
+    void ouvrir_passage(cell x, cell y) {
+        this->ajouter_arete(x,y);
+    }
 };

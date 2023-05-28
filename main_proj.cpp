@@ -120,14 +120,14 @@ int main() {
         cout << endl;
     }
 
-    cellSet voisinsSet = g.voisins(make_pair(1, 1));
+    cellSet voisinsSet = g.getVoisins(make_pair(1, 1));
     cout << "Voisins of (1, 1): ";
     for (const auto& v : voisinsSet) {
         cout << "(" << get<0>(v) << ", " << get<1>(v) << ") ";
     }
     cout << endl;
 
-    vector<Arete> aretesVec = g.aretes();
+    Aretes aretesVec = g.aretes();
     cout << "Aretes: ";
     for (const auto& a : aretesVec) {
         const auto& u = a.first;
