@@ -163,7 +163,17 @@ class Labyrinthe: public Graphe {
         }
             
         void ouvrir_passage(cell x, cell y) {
-            this->ajouter_arete(x,y);
+            cellSet test_x=voisins_cellule(x);
+            //cellSet test_y=voisins_cellule(y);
+            auto it = test_x.find(y);
+                if (it != test_x.end()) {
+                      this->ajouter_arete(x,y);
+                      cout<<"Adjacent"<<endl;
+             } 
+                else {
+                     cout << "Pas adjacent" << endl;
+             }
+          
         }
 
 };
