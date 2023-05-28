@@ -141,8 +141,8 @@ class Labyrinthe: public Graphe {
                     cell gauche = make_pair(i,j-1);
                     cell bas = make_pair(i+1,j);
                     cell droite = make_pair(i,j+1);
-                    if (i-1>0) voisins.insert(haut);
-                    if (j-1>0) voisins.insert(gauche);
+                    if (i-1>=0) voisins.insert(haut);
+                    if (j-1>=0) voisins.insert(gauche);
                     if (i+1<h) voisins.insert(bas);
                     if (j+1<w) voisins.insert(droite);
                     Dico[make_pair(i,j)]=voisins;
@@ -151,12 +151,12 @@ class Labyrinthe: public Graphe {
             return Dico;
         }
         
-        /*Aretes murs_cellule(cell C) {
+        Aretes murs_cellule(cell C) {
             Aretes murs;
             cellSet voisins = voisins_cellule(C);
-            for (cell c : voisins) murs.insert(C,c);
+            for (cell c : voisins) murs.insert(make_pair(C,c));
             return murs;
-        }*/
+        }
             
         cellSet voisins_cellule(cell C){
             return dic_adjac(this->getWidth(),this->getHeight())[C];

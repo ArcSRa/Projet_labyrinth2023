@@ -160,11 +160,11 @@ int main() {
     }
     cout << endl;*/
 
-    Labyrinthe lab(10, 10);
-    lab.reset();
-    cout << lab;
+    Labyrinthe lab(5, 4);
+    //lab.reset();
+    //cout << lab;
 
-    cellMap map = lab.dic_adjac(10, 10);
+    /*cellMap map = lab.dic_adjac(5, 4);
     for (const auto& pair : map) {
         const auto& cell = pair.first;
         const auto& cellSet = pair.second;
@@ -174,7 +174,13 @@ int main() {
             cout << "(" << get<0>(value) << ", " << get<1>(value) << ") ";
         }
         cout << endl;
-    }
+    }*/
 
+    /*Aretes murs = lab.murs_cellule(make_pair(1,1));
+    for (const auto& arete : murs) {
+        cout << "First cell: (" << arete.first.first << ", " << arete.first.second << ")" << endl;
+        cout << "Second cell: (" << arete.second.first << ", " << arete.second.second << ")" << endl;
+        cout << "-----------------------" << endl;
+    }*/
     return 0;
 }
