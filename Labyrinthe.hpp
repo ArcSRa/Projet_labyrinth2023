@@ -176,4 +176,30 @@ class Labyrinthe: public Graphe {
           
         }
 
+
+     void construire_aldous_broder() {
+    reset(); 
+    cellSet visitees; 
+    cell celluleCourante(0, 0); 
+    visitees.insert(celluleCourante); 
+
+    int cellulesRestantes = this->getWidth() * this->getHeight() - 1; 
+
+    while (cellulesRestantes > 0) {
+        cellSet voisins = this->voisins_cellule(celluleCourante); 
+
+
+        auto it = next(begin(voisins), rand() % voisins.size());
+        cell voisin = *it;
+
+        if (visitees.find(voisin) == visitees.end()) { 
+            ajouter_arete(celluleCourante, voisin); 
+            visitees.insert(voisin); 
+            cellulesRestantes--; 
+        }
+
+        celluleCourante = voisin; 
+    }
+}
+
 };

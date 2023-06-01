@@ -20,5 +20,7 @@ int main() {
         cout << endl;
     }
     lab.ouvrir_passage(make_pair(1,1),make_pair(3,4));
+    lab.construire_aldous_broder();
+    cout<<lab;
     return 0;
 }
