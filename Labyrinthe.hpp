@@ -125,7 +125,8 @@ class Labyrinthe: public Graphe {
                     repr[2 * l + 2][2 * c + 1] = ' ';
                 }
             }
-
+        this->setRepr(1,1,'D');
+        this->setRepr(repr.size()-2,repr[0].size()-2,'A');
             for (const auto& row : repr) {
                 for (char c : row) {
                     resultat += c;
@@ -210,8 +211,8 @@ class Labyrinthe: public Graphe {
         celluleCourante = voisin; 
         //this->setRepr(murs_cellule(celluleCourante));
         
-        murs=murs_cellule(celluleCourante);
-        
+        //murs=murs_cellule(celluleCourante);
+      
     }
       return repr;
 }
