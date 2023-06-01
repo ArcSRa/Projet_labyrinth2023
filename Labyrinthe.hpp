@@ -1,7 +1,8 @@
 #include "graph.hpp"
 
 //static const vector<string> coins = { " ", "═", "║", "╚", "═", "═", "╝", "╩", "║", "╔", "║", "╠", "╗", "╦", "╣", "╬" };
-static const vector<string> coins = { " ", "=", "|", "L", "=", "=", "J", "I", "|", "P", "|", ">", "T", "^", "<", "+" };
+static const vector<string> coins = { " ", "~", "|", "L", "=", "=", "J", "I", "|", "P", "|", ">", "T", "^", "<", "+" };
+
 
 class Labyrinthe: public Graphe {
     private:
@@ -78,6 +79,7 @@ class Labyrinthe: public Graphe {
             // Les murs
             for (int c = 0; c < getWidth(); c++) {
                 repr[0][2 * c + 1] = coins[5][0];
+                
             }
             for (int l = 0; l < getHeight(); l++) {
                 repr[2 * l + 1][0] = coins[10][0];
@@ -91,10 +93,12 @@ class Labyrinthe: public Graphe {
                     if (c + 1 < getWidth() && arete(make_pair(l, c), make_pair(l, c + 1))) {
                         repr[2 * l + 1][2 * c + 2] = coins[0][0];
                     } else {
-                        repr[2 * l + 1][2 * c + 2] = coins[10][0];
+                        repr[2 * l + 1][2 * c + 2] = coins[10][0]; //|
                     }
                 }
             }
+
+            //cout<<"coin"<<coins[1][0]<<endl;
 
             // Les coins
             for (long unsigned int l = 0; l < repr.size(); l += 2) {
@@ -168,23 +172,24 @@ class Labyrinthe: public Graphe {
             auto it = test_x.find(y);
                 if (it != test_x.end()) {
                       this->ajouter_arete(x,y);
-                      cout<<"Adjacent"<<endl;
+                    //  cout<<"Adjacent"<<endl;
              } 
                 else {
-                     cout << "Pas adjacent" << endl;
+                    // cout << "Pas adjacent" << endl;
              }
-          
+     
         }
 
 
-     void construire_aldous_broder() {
-    reset(); 
+     vector<vector<char>> construire_aldous_broder() {
+    reset();
+    effacer_repr(); 
     cellSet visitees; 
     cell celluleCourante(0, 0); 
     visitees.insert(celluleCourante); 
-
+    this->setRepr(1,1,'G');
     int cellulesRestantes = this->getWidth() * this->getHeight() - 1; 
-
+    Aretes murs;
     while (cellulesRestantes > 0) {
         cellSet voisins = this->voisins_cellule(celluleCourante); 
 
@@ -193,13 +198,23 @@ class Labyrinthe: public Graphe {
         cell voisin = *it;
 
         if (visitees.find(voisin) == visitees.end()) { 
-            ouvrir_passage(celluleCourante,voisin);
+            this->ouvrir_passage(celluleCourante,voisin);
             visitees.insert(voisin); 
             cellulesRestantes--; 
+            if(arete(celluleCourante,voisin))
+            { 
+                this->setRepr(celluleCourante.first * 2 + 1, celluleCourante.second * 2 + 1, '_'); // Mettre à jour la représentation
+            }
         }
-    
+
         celluleCourante = voisin; 
+        //this->setRepr(murs_cellule(celluleCourante));
+        
+        murs=murs_cellule(celluleCourante);
+        
     }
+      return repr;
 }
+
 
 };
