@@ -193,11 +193,11 @@ class Labyrinthe: public Graphe {
         cell voisin = *it;
 
         if (visitees.find(voisin) == visitees.end()) { 
-            ajouter_arete(celluleCourante, voisin); 
+            ouvrir_passage(celluleCourante,voisin);
             visitees.insert(voisin); 
             cellulesRestantes--; 
         }
-
+    
         celluleCourante = voisin; 
     }
 }
