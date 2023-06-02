@@ -28,31 +28,31 @@ protected:
         double y = l * cell_height;
 
         if (representation[l][c] == '#') {//vertical droit
-          cr->move_to(x, y);
+          cr->move_to(x+cell_width, y);
           
        
           cr->line_to(x+cell_width, y + cell_height*2);
          // cr->line_to(x, y); 
         }
          if (representation[l][c] == '&') {//vertical gauche
-          cr->move_to(x, y);
+          cr->move_to(x- cell_width, y);
           
           cr->line_to(x - cell_width, y + cell_height*2);
           //cr->line_to(x, y); 
         }
-          if (representation[l][c] == '_') {//horizontal bas
-          cr->move_to(x, y);
+           if (representation[l][c] == '_') {//horizontal bas
+           cr->move_to(x, y- cell_height);
           
        
           cr->line_to(x+cell_width*2, y - cell_height);
-          //cr->line_to(x, y); 
-        }
-         if (representation[l][c] == '~') {//horizontal haut
-          cr->move_to(x, y);
+         //cr->line_to(x, y); 
+         }
+          if (representation[l][c] == '~') {//horizontal haut
+           cr->move_to(x, y+cell_height);
           
           cr->line_to(x +cell_width*2, y+cell_height);
-          //cr->line_to(x, y); 
-        }
+           //cr->line_to(x, y); 
+         }
              
       
       }

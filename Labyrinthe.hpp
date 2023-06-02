@@ -206,17 +206,18 @@ class Labyrinthe: public Graphe {
              {    if((celluleCourante.first > voisin.first)){
                 this->setRepr(celluleCourante.first * 2 + 1, celluleCourante.second * 2 + 1, '_');// Mur qui est horizontal bas entre les cellules
                     }
-                else
+                else if((celluleCourante.first < voisin.first)){
                 this->setRepr(celluleCourante.first * 2 + 1, celluleCourante.second * 2 + 1, '~');// Mur qui est horizontal haut entre les cellules
-       
+                }
              }
              else if((celluleCourante.first == voisin.first))
              {   
                  if((celluleCourante.second > voisin.second)){
                 this->setRepr(celluleCourante.first * 2 + 1, celluleCourante.second * 2 + 1, '&');// Mur qui est vertical gauche entre les cellules
                     }
-                else
+                else if ((celluleCourante.second > voisin.second)){
                 this->setRepr(celluleCourante.first * 2 + 1, celluleCourante.second * 2 + 1, '#'); //mur qui est vertical droit entre les cellules
+             }
              }
         }
 
