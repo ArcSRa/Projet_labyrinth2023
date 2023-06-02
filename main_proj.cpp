@@ -2,7 +2,28 @@
 //
 int main() {
 
-
+cellMap graph ={
+    {make_pair(0, 0), {make_pair(0, 1), make_pair(1, 0)}},
+    {make_pair(0, 1), {make_pair(0, 0), make_pair(1, 1)}},
+    {make_pair(0, 2), {make_pair(1, 2), make_pair(0, 3)}},
+    {make_pair(0, 3), {make_pair(0, 2), make_pair(1, 3)}},
+    {make_pair(1, 0), {make_pair(0, 0), make_pair(2, 0)}},
+    {make_pair(1, 1), {make_pair(0, 1), make_pair(1, 2)}},
+    {make_pair(1, 2), {make_pair(1, 1), make_pair(0, 2)}},
+    {make_pair(1, 3), {make_pair(0, 3), make_pair(2, 3)}},
+    {make_pair(2, 0), {make_pair(1, 0), make_pair(2, 1)}},
+    {make_pair(2, 1), {make_pair(2, 0)}},
+    {make_pair(2, 2), {make_pair(2, 3), make_pair(3, 2)}},
+    {make_pair(2, 3), {make_pair(1, 3), make_pair(2, 2), make_pair(3, 3)}},
+    {make_pair(3, 0), {make_pair(3, 1), make_pair(4, 0)}},
+    {make_pair(3, 1), {make_pair(3, 0), make_pair(3, 2)}},
+    {make_pair(3, 2), {make_pair(3, 1), make_pair(2, 2)}},
+    {make_pair(3, 3), {make_pair(2, 3)}},
+    {make_pair(4, 0), {make_pair(3, 0), make_pair(4, 1)}},
+    {make_pair(4, 1), {make_pair(4, 0), make_pair(4, 2)}},
+    {make_pair(4, 2), {make_pair(4, 1), make_pair(4, 3)}},
+    {make_pair(4, 3), {make_pair(4, 2)}}
+};
     Labyrinthe lab(5, 4);
     lab.reset();
     cout << lab;
