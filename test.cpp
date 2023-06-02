@@ -10,7 +10,7 @@ private:
 
 protected:
   bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr) override {
-    const vector<vector<char>>& representation = labyrinthe.getRepr();
+    const vector<vector<char>>& representation = labyrinthe.construire_aldous_broder();
     const double cell_width = 600.0 / width;
     const double cell_height = 600.0 / height;
 
@@ -26,33 +26,59 @@ protected:
       for (int c = 0; c < width; c++) {
         double x = c * cell_width;
         double y = l * cell_height;
-
+        cr->set_source_rgb(0.0, 0.0, 0.0); 
         if (representation[l][c] == '#') {//vertical droit
+          cr->set_source_rgb(0.0, 1.0, 0.0); 
           cr->move_to(x+cell_width, y);
           
        
-          cr->line_to(x+cell_width, y + cell_height*2);
+          cr->line_to(x+cell_width, y + cell_height);
          // cr->line_to(x, y); 
+          cr->stroke(); 
         }
-         if (representation[l][c] == '&') {//vertical gauche
+        else if (representation[l][c] == '&') {//vertical gauche
+         cr->set_source_rgb(1.0, 0.0, 0.0); 
           cr->move_to(x- cell_width, y);
           
-          cr->line_to(x - cell_width, y + cell_height*2);
+          cr->line_to(x - cell_width, y + cell_height);
+        cr->stroke(); 
           //cr->line_to(x, y); 
         }
-           if (representation[l][c] == '_') {//horizontal bas
+          else if (representation[l][c] == '_') {//horizontal bas
+            cr->set_source_rgb(0.0, 0.0, 1.0); 
            cr->move_to(x, y- cell_height);
           
        
-          cr->line_to(x+cell_width*2, y - cell_height);
+          cr->line_to(x+cell_width, y - cell_height);
+           cr->stroke(); 
          //cr->line_to(x, y); 
          }
-          if (representation[l][c] == '~') {//horizontal haut
+         else  if (representation[l][c] == '~') {//horizontal haut
+                 cr->set_source_rgb(1.0, 0.0, 1.0); 
            cr->move_to(x, y+cell_height);
           
-          cr->line_to(x +cell_width*2, y+cell_height);
+          cr->line_to(x +cell_width, y+cell_height);
+           cr->stroke(); 
            //cr->line_to(x, y); 
          }
+          else if (representation[l][c] == 'A') { //arrivé en rouge
+           cr->move_to(x, y);
+         
+         
+          cr->line_to(x + cell_width, y);
+          cr->line_to(x + cell_width, y + cell_height);
+          cr->line_to(x, y + cell_height);
+          cr->line_to(x, y); // Ferme le chemin
+        }
+        else if (representation[l][c] == 'D') {//départ en bleu
+         
+
+          cr->move_to(x, y);
+          cr->line_to(x + cell_width, y);
+          cr->line_to(x + cell_width, y + cell_height);
+          cr->line_to(x, y + cell_height);
+          cr->line_to(x, y); // Ferme le chemin
+        }
              
       
       }
@@ -74,8 +100,8 @@ public:
     add_events(Gdk::BUTTON_PRESS_MASK);
 
     signal_draw().connect(sigc::mem_fun(*this, &MazeWindow::on_draw));
-
-    labyrinthe.construire_aldous_broder();
+  labyrinthe.construire_aldous_broder();
+  
 
     show_all();
   }
@@ -84,7 +110,7 @@ public:
 int main(int argc, char* argv[]) {
   Gtk::Main app(argc, argv);
 
-  MazeWindow window(20, 13); 
+  MazeWindow window(5, 5); 
 
   Gtk::Main::run(window);
 

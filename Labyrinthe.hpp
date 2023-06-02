@@ -1,7 +1,7 @@
 #include "graph.hpp"
 
 //static const vector<string> coins = { " ", "═", "║", "╚", "═", "═", "╝", "╩", "║", "╔", "║", "╠", "╗", "╦", "╣", "╬" };
-static const vector<string> coins = { " ", "~", "|", "L", "=", "=", "J", "I", "|", "P", "|", ">", "T", "^", "<", "+" };
+static const vector<string> coins = { " ", "-", "|", "L", "=", "=", "J", "I", "|", "P", "|", ">", "T", "^", "<", "+" };
 
 
 class Labyrinthe: public Graphe {
@@ -188,9 +188,11 @@ class Labyrinthe: public Graphe {
     cellSet visitees; 
     cell celluleCourante(0, 0); 
     visitees.insert(celluleCourante); 
-    this->setRepr(1,1,'G');
+    //this->setRepr(1,1,'G');
     int cellulesRestantes = this->getWidth() * this->getHeight() - 1; 
     Aretes murs;
+    this->setRepr(1,1,'D');
+    this->setRepr(repr.size()-2,repr[0].size()-2,'A');
     while (cellulesRestantes > 0) {
         cellSet voisins = this->voisins_cellule(celluleCourante); 
 
@@ -204,19 +206,19 @@ class Labyrinthe: public Graphe {
             cellulesRestantes--; 
             if((celluleCourante.first != voisin.first))
              {    if((celluleCourante.first > voisin.first)){
-                this->setRepr(celluleCourante.first * 2 + 1, celluleCourante.second * 2 + 1, '_');// Mur qui est horizontal bas entre les cellules
+                this->setRepr(celluleCourante.first , celluleCourante.second , '_');// Mur qui est horizontal bas entre les cellules
                     }
                 else if((celluleCourante.first < voisin.first)){
-                this->setRepr(celluleCourante.first * 2 + 1, celluleCourante.second * 2 + 1, '~');// Mur qui est horizontal haut entre les cellules
+                this->setRepr(celluleCourante.first , celluleCourante.second , '~');// Mur qui est horizontal haut entre les cellules
                 }
              }
              else if((celluleCourante.first == voisin.first))
              {   
                  if((celluleCourante.second > voisin.second)){
-                this->setRepr(celluleCourante.first * 2 + 1, celluleCourante.second * 2 + 1, '&');// Mur qui est vertical gauche entre les cellules
+                this->setRepr(celluleCourante.first , celluleCourante.second , '&');// Mur qui est vertical gauche entre les cellules
                     }
                 else if ((celluleCourante.second > voisin.second)){
-                this->setRepr(celluleCourante.first * 2 + 1, celluleCourante.second * 2 + 1, '#'); //mur qui est vertical droit entre les cellules
+                this->setRepr(celluleCourante.first , celluleCourante.second , '#'); //mur qui est vertical droit entre les cellules
              }
              }
         }
