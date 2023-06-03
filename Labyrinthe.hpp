@@ -202,7 +202,7 @@ class Labyrinthe: public Graphe {
 
         if (visitees.find(voisin) == visitees.end()) { 
             this->ouvrir_passage(celluleCourante,voisin);
-            murs.insert(murs_cellule(celluleCourante));
+           // murs.insert(murs_cellule(celluleCourante));
             visitees.insert(voisin); 
             cellulesRestantes--; 
             if((celluleCourante.first != voisin.first))
