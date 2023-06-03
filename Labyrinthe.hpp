@@ -183,14 +183,14 @@ class Labyrinthe: public Graphe {
 
 
      vector<vector<char>> construire_aldous_broder() {
-    reset();
-    effacer_repr(); 
+    //reset();
+    //effacer_repr(); 
     cellSet visitees; 
     cell celluleCourante(0, 0); 
     visitees.insert(celluleCourante); 
     //this->setRepr(1,1,'G');
     int cellulesRestantes = this->getWidth() * this->getHeight() - 1; 
-    Aretes murs;
+    set<Aretes> murs;
     this->setRepr(1,1,'D');
     this->setRepr(repr.size()-2,repr[0].size()-2,'A');
     while (cellulesRestantes > 0) {
@@ -202,6 +202,7 @@ class Labyrinthe: public Graphe {
 
         if (visitees.find(voisin) == visitees.end()) { 
             this->ouvrir_passage(celluleCourante,voisin);
+            murs.insert(murs_cellule(celluleCourante));
             visitees.insert(voisin); 
             cellulesRestantes--; 
             if((celluleCourante.first != voisin.first))
@@ -217,7 +218,7 @@ class Labyrinthe: public Graphe {
                  if((celluleCourante.second > voisin.second)){
                 this->setRepr(celluleCourante.first , celluleCourante.second , '&');// Mur qui est vertical gauche entre les cellules
                     }
-                else if ((celluleCourante.second > voisin.second)){
+                else if ((celluleCourante.second < voisin.second)){
                 this->setRepr(celluleCourante.first , celluleCourante.second , '#'); //mur qui est vertical droit entre les cellules
              }
              }
@@ -229,6 +230,7 @@ class Labyrinthe: public Graphe {
         //murs=murs_cellule(celluleCourante);
       
     }
+    
       return repr;
 }
 

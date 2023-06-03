@@ -27,6 +27,11 @@ protected:
         double x = c * cell_width;
         double y = l * cell_height;
         cr->set_source_rgb(0.0, 0.0, 0.0); 
+         if (representation[l][c] != ' ') {
+                 //   cr->set_source_rgb(0.0, 0.0, 0.0);
+                   // cr->rectangle(x, y, cell_width, cell_height);
+                   // cr->stroke();//cr->fill();
+                }
         if (representation[l][c] == '#') {//vertical droit
           cr->set_source_rgb(0.0, 1.0, 0.0); 
           cr->move_to(x+cell_width, y);
@@ -36,7 +41,7 @@ protected:
          // cr->line_to(x, y); 
           cr->stroke(); 
         }
-        else if (representation[l][c] == '&') {//vertical gauche
+         if (representation[l][c] == '&') {//vertical gauche
          cr->set_source_rgb(1.0, 0.0, 0.0); 
           cr->move_to(x- cell_width, y);
           
@@ -44,7 +49,7 @@ protected:
         cr->stroke(); 
           //cr->line_to(x, y); 
         }
-          else if (representation[l][c] == '_') {//horizontal bas
+           if (representation[l][c] == '_') {//horizontal bas
             cr->set_source_rgb(0.0, 0.0, 1.0); 
            cr->move_to(x, y- cell_height);
           
@@ -53,7 +58,7 @@ protected:
            cr->stroke(); 
          //cr->line_to(x, y); 
          }
-         else  if (representation[l][c] == '~') {//horizontal haut
+           if (representation[l][c] == '~') {//horizontal haut
                  cr->set_source_rgb(1.0, 0.0, 1.0); 
            cr->move_to(x, y+cell_height);
           
@@ -61,7 +66,7 @@ protected:
            cr->stroke(); 
            //cr->line_to(x, y); 
          }
-          else if (representation[l][c] == 'A') { //arrivé en rouge
+           if (representation[l][c] == 'A') { //arrivé en rouge
            cr->move_to(x, y);
          
          
@@ -70,7 +75,7 @@ protected:
           cr->line_to(x, y + cell_height);
           cr->line_to(x, y); // Ferme le chemin
         }
-        else if (representation[l][c] == 'D') {//départ en bleu
+         if (representation[l][c] == 'D') {//départ en bleu
          
 
           cr->move_to(x, y);
