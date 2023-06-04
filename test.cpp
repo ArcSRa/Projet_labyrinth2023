@@ -67,7 +67,7 @@ protected:
     labyrinthe.construire_aldous_broder();
   
      //afficherCellMap(labyrinthe.getGraph(),labyrinthe, cell_width,cell_height);
-       const vector<vector<char>>& representation = labyrinthe.getRepr();
+      // const vector<vector<char>>& representation = labyrinthe.getRepr();
     
     cr->set_source_rgb(1.0, 1.0, 1.0); 
     cr->paint(); 
@@ -75,6 +75,7 @@ protected:
     cr->set_source_rgb(0.0, 0.0, 0.0); 
     cr->set_line_width(1.0); 
     cr->rectangle(0, 0, 600, 600);
+    cr->stroke();
     const cellMap& map=labyrinthe.getGraph();
 for (const auto& entry : map) {
     const cell& key = entry.first;
@@ -89,36 +90,67 @@ for (const auto& entry : map) {
     for (const cell& neighbor : values) {
         cout << " (" << neighbor.first << ", " << neighbor.second << ")\n"; // voisin avec passage
         for (const auto& voisin : voisins) {
+              
             if (values.find(voisin) == values.end()) {
-                double x = key.first * cell_width;
-                double y = key.second * cell_height;
+                double y1 = key.first * cell_width;
+                double x1 = key.second * cell_height;
+                 double y2 = voisin.first * cell_width;
+                double x2 = voisin.second * cell_height;
                 cout << "VRAI VOISIN : (" << voisin.first << ", " << voisin.second << ")" << endl; // voisin meme sans passage / cellule voisine avec mur entre
                 
-                if (key.first != voisin.first) {
+                if (y1>y2) {
+                        cr->set_source_rgb(1.0, 0.0, 0.0); 
+                        cr->move_to(y1-cell_width,x1+cell_height);
+                        cr->line_to( y1+cell_width, x1+cell_height);
+                        cr->stroke();
+                }
+                  if(x1>x2){
+                        cr->set_source_rgb(0.0, 0.0, 1.0); 
+                      cr->move_to(   y1-cell_width   , x1-cell_width);
+                        cr->line_to(  y1-cell_width  , x1+cell_width);
+                        cr->stroke();
+                }
+                if (y1<y2) {
+                        cr->set_source_rgb(1.0, 0.0, 0.0); 
+                        cr->move_to(y1-cell_width,x1+cell_height);
+                        cr->line_to( y1+cell_width, x1+cell_height);
+                        cr->stroke();
+                }
+                  if(x1<x2){
+                        cr->set_source_rgb(0.0, 0.0, 1.0); 
+                      cr->move_to(  y1+cell_width , x1-cell_width);
+                        cr->line_to(  y1+cell_width ,x1+cell_width);
+                        cr->stroke();
+                }
+                
+               /* if (key.first != voisin.first) {
                     if (voisin.first > key.first) {// Mur qui est horizontal bas entre les cellules
                         cr->set_source_rgb(0.0, 0.0, 1.0); 
-                        cr->move_to(x, y + cell_height);
-                        cr->line_to(x + cell_width, y + cell_height);
+                        cr->move_to(x, y );
+                        cr->line_to(x + cell_width, y );
                         cr->stroke();
-                    } else if (voisin.first < key.first) {// Mur qui est horizontal haut entre les cellules
+                    } 
+                     if (voisin.first < key.first) {// Mur qui est horizontal haut entre les cellules
                         cr->set_source_rgb(1.0, 0.0, 1.0); 
                         cr->move_to(x, y + cell_height);
                         cr->line_to(x + cell_width, y + cell_height);
                         cr->stroke();
                     }
-                } else if (key.first == voisin.first) {
+                } 
+                if (key.first == voisin.first) {
                     if (voisin.second < key.second) {// Mur qui est vertical gauche entre les cellules
                         cr->set_source_rgb(1.0, 0.0, 0.0); 
                         cr->move_to(x - cell_width, y);
                         cr->line_to(x - cell_width, y + cell_height);
                         cr->stroke();
-                    } else if (voisin.second > key.second) {//mur qui est vertical droit entre les cellules
+                    } 
+                    if (voisin.second > key.second) {//mur qui est vertical droit entre les cellules
                         cr->set_source_rgb(0.0, 1.0, 0.0); 
                         cr->move_to(x + cell_width, y);
                         cr->line_to(x + cell_width, y + cell_height);
                         cr->stroke();
                     }
-                }
+                }*/
             }
         }
     }
@@ -247,7 +279,7 @@ public:
 int main(int argc, char* argv[]) {
   Gtk::Main app(argc, argv);
 
-  MazeWindow window(5, 4); 
+  MazeWindow window(5, 5); 
 
   Gtk::Main::run(window);
 
