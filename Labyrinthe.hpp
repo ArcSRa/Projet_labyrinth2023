@@ -182,7 +182,7 @@ class Labyrinthe: public Graphe {
         }
 
 
-     vector<vector<char>> construire_aldous_broder() {
+   void construire_aldous_broder() {
     reset();
     //effacer_repr(); 
     cellSet visitees; 
@@ -202,36 +202,18 @@ class Labyrinthe: public Graphe {
 
         if (visitees.find(voisin) == visitees.end()) { 
             this->ouvrir_passage(celluleCourante,voisin);
-           // murs.insert(murs_cellule(celluleCourante));
+         
             visitees.insert(voisin); 
             cellulesRestantes--; 
-            /*if((celluleCourante.first != voisin.first))
-             {    if((celluleCourante.first > voisin.first)){
-                this->setRepr(celluleCourante.first , celluleCourante.second , '_');// Mur qui est horizontal bas entre les cellules
-                    }
-                else if((celluleCourante.first < voisin.first)){
-                this->setRepr(celluleCourante.first , celluleCourante.second , '~');// Mur qui est horizontal haut entre les cellules
-                }
-             }
-             else if((celluleCourante.first == voisin.first))
-             {   
-                 if((celluleCourante.second > voisin.second)){
-                this->setRepr(celluleCourante.first , celluleCourante.second , '&');// Mur qui est vertical gauche entre les cellules
-                    }
-                else if ((celluleCourante.second < voisin.second)){
-                this->setRepr(celluleCourante.first , celluleCourante.second , '#'); //mur qui est vertical droit entre les cellules
-             }
-             }*/
+           
         }
 
         celluleCourante = voisin; 
-        //this->setRepr(murs_cellule(celluleCourante));
-        
-        //murs=murs_cellule(celluleCourante);
+   
       
     }
     
-      return this->getRepr();
+     
 }
 
 

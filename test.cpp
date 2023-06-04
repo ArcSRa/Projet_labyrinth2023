@@ -1,56 +1,7 @@
 #include <gtkmm.h>
 #include <iostream>
 #include "Labyrinthe.hpp"
-void afficherCellMap(const cellMap& map,Labyrinthe &labyrinthe,const double cell_width,const double cell_height) {
-    for (const auto& entry : map) {
-        const cell& key = entry.first;
-        const cellSet& values = entry.second;
-        const cellSet voisins = labyrinthe.voisins_cellule(key);
-        // Afficher la clé (cellule)
-        cout << "Clé : (" << key.first << ", " << key.second << ")" << endl;
-        
-        // Afficher les valeurs (voisins de la cellule)
-        cout << "Voisins :"<<endl;
-        for (const cell& neighbor : values) {
-           
-           
-            cout << " (" << neighbor.first << ", " << neighbor.second << ")\n";//voisin avec passage
-            for (const auto& voisin : voisins) {
 
-           if (values.find(voisin) == values.end())
-               {   double x = key.first * cell_width;
-                  double y = key.second * cell_height;
-                 cout << "VRAI VOISIN : (" << voisin.first << ", " << voisin.second << ")" << endl;//voisin meme sans passage /cellule voisine avec mur entre
-                if((key.first != voisin.first))
-             {    if(( voisin.first > key.first)){
-                labyrinthe.setRepr( key.first ,  key.second , '_');// Mur qui est horizontal bas entre les cellules
-                    }
-                else if(( voisin.first < key.first)){
-                labyrinthe.setRepr( key.first ,  key.second , '~');// Mur qui est horizontal haut entre les cellules
-                }
-             }
-             else if(( key.first == voisin.first))
-             {   
-                 if(( voisin.second < key.second)){
-                labyrinthe.setRepr( key.first ,  key.second , '&');// Mur qui est vertical gauche entre les cellules
-                    }
-                else if (( voisin.second > key.second)){
-                labyrinthe.setRepr( key.first ,  key.second , '#'); //mur qui est vertical droit entre les cellules
-             }
-             }
-                }
-
-           }
-    
-    
-        }
-    }
-        cout << endl;
-       
-
-   
-            
-}
 class MazeWindow : public Gtk::Window {
 private:
   int width;
@@ -78,11 +29,12 @@ protected:
     cr->stroke();
     const cellMap& map=labyrinthe.getGraph();
 for (const auto& entry : map) {
+  
     const cell& key = entry.first;
     const cellSet& values = entry.second;
     const cellSet voisins = labyrinthe.voisins_cellule(key);
-                double y1 = key.first * cell_width;
-                double x1 = key.second * cell_height;
+     double y1 = key.first * cell_width;
+     double x1 = key.second * cell_height;
     // Afficher la clé (cellule)
     cout << "Clé : (" << key.first << ", " << key.second << ")" << endl;
     
@@ -270,10 +222,10 @@ public:
 
    override_background_color(Gdk::RGBA("white"));
 
-    add_events(Gdk::BUTTON_PRESS_MASK);
+    add_events(Gdk::KEY_PRESS_MASK);
+   // labyrinthe.construire_aldous_broder();
 
     signal_draw().connect(sigc::mem_fun(*this, &MazeWindow::on_draw));
-  //labyrinthe.construire_aldous_broder();
   
 
     show_all();
