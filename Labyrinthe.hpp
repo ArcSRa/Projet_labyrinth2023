@@ -191,8 +191,8 @@ class Labyrinthe: public Graphe {
     //this->setRepr(1,1,'G');
     int cellulesRestantes = this->getWidth() * this->getHeight() - 1; 
     set<Aretes> murs;
-    this->setRepr(1,1,'D');
-    this->setRepr(repr.size()-2,repr[0].size()-2,'A');
+    //this->setRepr(1,1,'D');
+    //this->setRepr(repr.size()-2,repr[0].size()-2,'A');
     while (cellulesRestantes > 0) {
         cellSet voisins = this->voisins_cellule(celluleCourante); 
 
@@ -205,7 +205,7 @@ class Labyrinthe: public Graphe {
            // murs.insert(murs_cellule(celluleCourante));
             visitees.insert(voisin); 
             cellulesRestantes--; 
-            if((celluleCourante.first != voisin.first))
+            /*if((celluleCourante.first != voisin.first))
              {    if((celluleCourante.first > voisin.first)){
                 this->setRepr(celluleCourante.first , celluleCourante.second , '_');// Mur qui est horizontal bas entre les cellules
                     }
@@ -221,7 +221,7 @@ class Labyrinthe: public Graphe {
                 else if ((celluleCourante.second < voisin.second)){
                 this->setRepr(celluleCourante.first , celluleCourante.second , '#'); //mur qui est vertical droit entre les cellules
              }
-             }
+             }*/
         }
 
         celluleCourante = voisin; 
