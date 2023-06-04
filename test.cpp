@@ -81,7 +81,8 @@ for (const auto& entry : map) {
     const cell& key = entry.first;
     const cellSet& values = entry.second;
     const cellSet voisins = labyrinthe.voisins_cellule(key);
-    
+                double y1 = key.first * cell_width;
+                double x1 = key.second * cell_height;
     // Afficher la clé (cellule)
     cout << "Clé : (" << key.first << ", " << key.second << ")" << endl;
     
@@ -90,12 +91,11 @@ for (const auto& entry : map) {
     for (const cell& neighbor : values) {
         cout << " (" << neighbor.first << ", " << neighbor.second << ")\n"; // voisin avec passage
         for (const auto& voisin : voisins) {
-              
-            if (values.find(voisin) == values.end()) {
-                double y1 = key.first * cell_width;
-                double x1 = key.second * cell_height;
-                 double y2 = voisin.first * cell_width;
+               double y2 = voisin.first * cell_width;
                 double x2 = voisin.second * cell_height;
+            if (values.find(voisin) == values.end()) {
+              
+                
                 cout << "VRAI VOISIN : (" << voisin.first << ", " << voisin.second << ")" << endl; // voisin meme sans passage / cellule voisine avec mur entre
                 
                 if (y1>y2) {
@@ -103,24 +103,28 @@ for (const auto& entry : map) {
                         cr->move_to(y1-cell_width,x1+cell_height);
                         cr->line_to( y1+cell_width, x1+cell_height);
                         cr->stroke();
+                        cout<<"haut(rouge)"<<endl;
                 }
                   if(x1>x2){
                         cr->set_source_rgb(0.0, 0.0, 1.0); 
                       cr->move_to(   y1-cell_width   , x1-cell_width);
                         cr->line_to(  y1-cell_width  , x1+cell_width);
                         cr->stroke();
+                        cout<<"gauche(bleu)"<<endl;
                 }
                 if (y1<y2) {
-                        cr->set_source_rgb(1.0, 0.0, 0.0); 
+                        cr->set_source_rgb(0.0, 1.0, 0.0); 
                         cr->move_to(y1-cell_width,x1+cell_height);
                         cr->line_to( y1+cell_width, x1+cell_height);
                         cr->stroke();
+                        cout<<"bas(vert)"<<endl;
                 }
                   if(x1<x2){
-                        cr->set_source_rgb(0.0, 0.0, 1.0); 
+                        cr->set_source_rgb(0.0, 1.0, 1.0); 
                       cr->move_to(  y1+cell_width , x1-cell_width);
                         cr->line_to(  y1+cell_width ,x1+cell_width);
                         cr->stroke();
+                        cout<<"droite(bleu cyan)"<<endl;
                 }
                 
                /* if (key.first != voisin.first) {
