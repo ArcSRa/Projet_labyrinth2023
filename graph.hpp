@@ -22,7 +22,9 @@ private:
 
 public:
     
-    Graphe(int w, int h, bool oriented = true) : width(w), height(h), oriented(oriented) {}
+    //Graphe(int w, int h, bool oriented = true) : width(w), height(h), oriented(oriented) {}
+
+    Graphe(int w, int h, cellMap g={{}}, bool oriented = false) : width(w), height(h), graph(g), oriented(oriented) {}
 
     cellMap getGraph(){
         return this->graph;

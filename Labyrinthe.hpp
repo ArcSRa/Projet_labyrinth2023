@@ -1,7 +1,7 @@
 #include "graph.hpp"
 
 //static const vector<string> coins = { " ", "═", "║", "╚", "═", "═", "╝", "╩", "║", "╔", "║", "╠", "╗", "╦", "╣", "╬" };
-static const vector<string> coins = { " ", "=", "|", "L", "=", "=", "J", "I", "|", "P", "|", ">", "T", "^", "<", "+" };
+static const vector<string> coins = { " ", "=", "|", "#", "=", "=", "#", "I", "|", "#", "|", ">", "#", "^", "<", "+" };
 
 class Labyrinthe: public Graphe {
     private:
@@ -29,14 +29,14 @@ class Labyrinthe: public Graphe {
             this->ouvertures=C;
         }
 
-        Labyrinthe(int w = 0, int h = 0) : Graphe(w,h,false) {
+        Labyrinthe(int w = 0, int h = 0) : Graphe(w,h) {
             reset();
             setRepr(vector<vector<char>>(2 * getHeight() + 1, vector<char>(2 * getWidth() + 1, '*')));
-            //this->effacer_repr();
+            this->effacer_repr();
             this->ouvertures = cellSet();
         } 
 
-        Labyrinthe(cellMap list) : Graphe(0,0,false){
+        Labyrinthe(cellMap list) : Graphe(0,0){
             reset();
             construire(list);
             setRepr(vector<vector<char>>(2 * getHeight() + 1, vector<char>(2 * getWidth() + 1, '*')));
@@ -46,12 +46,13 @@ class Labyrinthe: public Graphe {
 
         void reset() {   
             clearGraph();
-            for(int l=0; l<getHeight(); l++){
-                for(int c=0; c<getWidth(); c++){
+            for(int l=0; l<this->getHeight(); l++){
+                for(int c=0; c<this->getWidth(); c++){
                     cell cellule(l,c);
                     this->ajouter_sommet(cellule);
                 }
             }
+            cout << "reset";
         }
 
         void effacer_repr() {
