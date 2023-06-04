@@ -40,7 +40,7 @@ public:
         return this->oriented;
     }
 
-    cellSet getVoisins(cell x) {
+    cellSet& getVoisins(cell x) {
         return this->graph[x];
     }
 

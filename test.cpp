@@ -14,12 +14,12 @@ protected:
     const double cell_width = 600.0 / width;
     const double cell_height = 600.0 / height;
     Aretes arretes=labyrinthe.aretes();
-    for (const auto& arete : arretes) {
+    /*for (const auto& arete : arretes) {
         const cell& cellule1 = arete.first;
         const cell& cellule2 = arete.second;
         std::cout << "(" << cellule1.first << ", " << cellule1.second << ") -> ("
                   << cellule2.first << ", " << cellule2.second << ")" << std::endl;
-    }
+    }*/
     /*cr->set_source_rgb(1.0, 1.0, 1.0); 
     cr->paint(); 
 

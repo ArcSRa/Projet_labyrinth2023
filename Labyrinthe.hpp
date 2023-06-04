@@ -33,7 +33,7 @@ class Labyrinthe: public Graphe {
         Labyrinthe(int w = 0, int h = 0) : Graphe(w,h,false) {
             reset();
             setRepr(vector<vector<char>>(2 * getHeight() + 1, vector<char>(2 * getWidth() + 1, ' ')));
-            //this->effacer_repr();
+            this->effacer_repr();
             this->ouvertures = cellSet();
         } 
 
@@ -183,7 +183,7 @@ class Labyrinthe: public Graphe {
 
 
      vector<vector<char>> construire_aldous_broder() {
-    //reset();
+    reset();
     //effacer_repr(); 
     cellSet visitees; 
     cell celluleCourante(0, 0); 
@@ -231,7 +231,7 @@ class Labyrinthe: public Graphe {
       
     }
     
-      return repr;
+      return this->getRepr();
 }
 
 
