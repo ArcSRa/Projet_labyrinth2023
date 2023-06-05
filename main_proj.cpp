@@ -160,16 +160,22 @@ int main() {
     }
     cout << endl;*/
 
-    Labyrinthe lab(5, 4);
-    //lab.reset();
+    Labyrinthe lab(4, 5);
     cellMap mapLab = lab.getGraph();
     cout << "mapLab :" << endl;
-    cout << mapLab.empty() << endl;
     for (const auto& vertex : mapLab) {
         cell v = vertex.first;
         cout << "(" << get<0>(v) << ", " << get<1>(v) << ")" << endl;
     }
     cout << lab;
+
+    /*Graphe g(5,4);
+    cell c=make_pair(0,0);
+    g.ajouter_sommet(c);
+    for (const auto& vertex : g.getGraph()) {
+        cell v = vertex.first;
+        cout << "(" << get<0>(v) << ", " << get<1>(v) << ")" << endl;
+    }*/
 
     /*cellMap map = lab.dic_adjac(5, 4);
     for (const auto& pair : map) {

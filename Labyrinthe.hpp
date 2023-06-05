@@ -29,7 +29,7 @@ class Labyrinthe: public Graphe {
             this->ouvertures=C;
         }
 
-        Labyrinthe(int w = 0, int h = 0) : Graphe(w,h) {
+        Labyrinthe(int h = 0, int w = 0) : Graphe(w,h) {
             reset();
             setRepr(vector<vector<char>>(2 * getHeight() + 1, vector<char>(2 * getWidth() + 1, '*')));
             this->effacer_repr();
@@ -52,7 +52,6 @@ class Labyrinthe: public Graphe {
                     this->ajouter_sommet(cellule);
                 }
             }
-            cout << "reset";
         }
 
         void effacer_repr() {
@@ -133,7 +132,7 @@ class Labyrinthe: public Graphe {
             return resultat;
         }
 
-        cellMap dic_adjac(int w, int h) {
+        cellMap dic_adjac(int h, int w) {
             cellMap Dico;
             for (int i=0; i<h; i++){
                 for (int j=0; j<w; j++){
@@ -164,6 +163,82 @@ class Labyrinthe: public Graphe {
         }
             
         void ouvrir_passage(cell x, cell y) {
-            this->ajouter_arete(x,y);
+            cellSet test_x=voisins_cellule(x);
+            auto it = test_x.find(y);
+            if (it != test_x.end()) {
+                this->ajouter_arete(x,y);
+            }
+        }
+
+        vector<vector<char>> construire_aldous_broder() {
+            cellSet visitees; 
+            cell celluleCourante(0, 0); 
+            visitees.insert(celluleCourante); 
+            int cellulesRestantes = this->getWidth() * this->getHeight() - 1; 
+            this->setRepr(1,1,'D');
+            this->setRepr(repr.size()-2,repr[0].size()-2,'A');
+            while (cellulesRestantes > 0) {
+                cellSet voisins = this->voisins_cellule(celluleCourante); 
+                auto it = next(begin(voisins), rand() % voisins.size());
+                cell voisin = *it;
+                if (visitees.find(voisin) == visitees.end()) { 
+                    this->ouvrir_passage(celluleCourante,voisin);
+                    visitees.insert(voisin); 
+                    cellulesRestantes--; 
+                }
+                celluleCourante = voisin;      
+            }
+            return repr;
+        }
+
+        Aretes murs(int h, int w) {
+            cellMap Dico = dic_adjac(h,w);
+            Aretes m;
+            for (cellMap::iterator it = Dico.begin(); it != Dico.end(); it++) {
+                cell x = it->first;
+                cellSet V = it->second;
+                for (cell cell : V) {
+                    m.insert(make_pair(x,cell));
+                }
+            }
+            return m;
+        }
+
+        void construire_fusion() {
+            reset();
+            map<cell,int> values;
+            int i=0;
+            bool end=false;
+
+            auto uniq = [](map<cell,int> map){
+                set<int> t_val;
+                for (pair<cell,int> pair : map) {
+                    if (t_val.count(pair.second) > 0) {
+                        return false;
+                    }
+                    t_val.insert(pair.second);
+                }
+                return true;
+            };
+                        
+            for (pair<cell,cellSet> it : this->getGraph()) { // on affecte une valeur unique a chaque cellule
+                values.insert(make_pair(it.first,i++));
+            }
+
+            Aretes m = murs(this->getHeight(),this->getWidth()); // on récup tous les murs du labyrinthe
+
+            while (!end) {
+                Aretes::iterator it = next(m.begin(), rand() % m.size()); // on en choisit un au hasard
+
+                if (values[it->first]!=values[it->second]) {
+                    this->ouvrir_passage(it->first,it->second);
+                    int temp = values[it->second];
+                    values[it->second]=values[it->first]; // on change la valeur du second par celle du first
+                    for (pair<cell,int> element : values) {
+                        if (element.second == temp) element.second=values[it->first];
+                    }//faire de même pour toutes les autres cellules liées a cette seconde
+                }
+                end=uniq(values);// on vérifie si y'a une seule valeur partout
+            }  
         }
 };
