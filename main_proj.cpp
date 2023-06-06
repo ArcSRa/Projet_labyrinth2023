@@ -24,7 +24,7 @@ cellMap graph ={
     {make_pair(4, 2), {make_pair(4, 1), make_pair(4, 3)}},
     {make_pair(4, 3), {make_pair(4, 2)}}
 };
-    Labyrinthe lab(3, 3);
+    Labyrinthe lab(10, 11);
     lab.reset();
     cout << lab;
     //lab.ouvrir_passage(make_pair(1,3),make_pair(2,3)) ;

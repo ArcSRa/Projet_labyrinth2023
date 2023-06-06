@@ -228,41 +228,37 @@ class Labyrinthe: public Graphe {
      
 }
 void construire_fusion() {
-            reset();
-            map<cell,int> values;
-            int i=0;
-            bool end=false;
+    reset();
 
-            auto uniq = [](map<cell,int> map){
-                set<int> t_val;
-                for (pair<cell,int> pair : map) {
-                    if (t_val.count(pair.second) > 0) {
-                        return false;
-                    }
-                    t_val.insert(pair.second);
+    map<cell, int> values;
+    int i = 0;
+
+    for (pair<cell, cellSet> it : this->getGraph()) {
+        values.insert(make_pair(it.first, i++));
+    }
+
+    Aretes m = murs(this->getHeight(), this->getWidth());
+
+ 
+
+    while (!m.empty() ) {
+        Aretes::iterator it = next(m.begin(), rand() % m.size());
+
+        if (values[it->first] != values[it->second]) {
+            this->ouvrir_passage(it->first, it->second);
+            int temp = values[it->second];
+            values[it->second] = values[it->first];
+
+            for (auto& element : values) {
+                if (element.second == temp) {
+                    element.second = values[it->first];
                 }
-                return true;
-            };
-                      
-            for (pair<cell,cellSet> it : this->getGraph()) { // on affecte une valeur unique a chaque cellule
-                values.insert(make_pair(it.first,i++));
             }
-
-            Aretes m = murs(this->getHeight(),this->getWidth()); // on récup tous les murs du labyrinthe
-
-            while (!end) {
-                Aretes::iterator it = next(m.begin(), rand() % m.size()); // on en choisit un au hasard
-
-                if (values[it->first]!=values[it->second]) {
-                    this->ouvrir_passage(it->first,it->second);
-                    int temp = values[it->second];
-                    values[it->second]=values[it->first]; // on change la valeur du second par celle du first
-                    for (pair<cell,int> element : values) {
-                        if (element.second == temp) element.second=values[it->first];
-                    }//faire de même pour toutes les autres cellules liées a cette seconde
-                }
-                end=uniq(values);// on vérifie si y'a une seule valeur partout
-            }  
         }
+
+        m.erase(it);
+     
+    }
+}
 
 };
