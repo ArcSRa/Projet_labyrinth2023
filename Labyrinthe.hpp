@@ -1,6 +1,5 @@
 #include "graph.hpp"
 
-//static const vector<string> coins = { " ", "═", "║", "╚", "═", "═", "╝", "╩", "║", "╔", "║", "╠", "╗", "╦", "╣", "╬" };
 static const vector<string> coins = { " ", "=", "|", "#", "=", "=", "#", "I", "|", "#", "|", ">", "#", "^", "<", "+" };
 
 class Labyrinthe: public Graphe {
@@ -9,26 +8,43 @@ class Labyrinthe: public Graphe {
         cellSet ouvertures;
    
     public:
+
+        /* Rôle : Retourne la représentation de l'objet courant
+         * Antécédent : L'objet courant doit être construit
+        */
         vector<vector<char>> getRepr() {
             return this->repr;
         }
 
+        /* Rôle : Retourne la liste des ouvertures de l'objet courant
+         * Antécédent : L'objet courant doit être construit
+         */
         cellSet getOuvert() {
             return this->ouvertures;
         }
 
+        /* Rôle : Modifie la représentation entière de l'objet courant
+         * Antécédent : L'objet courant doit être construit
+         */
         void setRepr(vector<vector<char>> tab) {
             this->repr=tab;
         }
 
+        /* Rôle : Modifie un caractère de la représentation de l'objet courant
+         * Antécédent : L'objet courant doit être construit
+         */
         void setRepr(int x, int y, char c){
             this->repr[x][y]=c;
         }
 
+        /* Rôle : Modifie la liste des ouvertures de l'objet courant
+         * Antécédent : L'objet courant doit être construit
+         */
         void setOuvert(cellSet C) {
             this->ouvertures=C;
         }
 
+        // Constructeur de la classe Labyrinthe
         Labyrinthe(int h = 0, int w = 0) : Graphe(w,h) {
             reset();
             setRepr(vector<vector<char>>(2 * getHeight() + 1, vector<char>(2 * getWidth() + 1, '*')));
@@ -36,6 +52,7 @@ class Labyrinthe: public Graphe {
             this->ouvertures = cellSet();
         } 
 
+        // Second constructeur de la classe Labyrinthe
         Labyrinthe(cellMap list) : Graphe(0,0){
             reset();
             construire(list);
@@ -44,6 +61,10 @@ class Labyrinthe: public Graphe {
             this->ouvertures = cellSet();
         }
 
+        /* Rôle : Permet de réinitialiser le graph d'un Labyrinthe
+         * Antécédent : L'objet courant doit être construit
+         * Conséquent : Le graph ne contient plus que des cellules non liées
+         */
         void reset() {   
             clearGraph();
             for(int l=0; l<this->getHeight(); l++){
@@ -54,6 +75,10 @@ class Labyrinthe: public Graphe {
             }
         }
 
+        /* Rôle : permet de remplacer certains caractères de la représentation par des espaces  
+         * Antécédent : L'objet courant doit être construit
+         * Conséquent : 
+         */
         void effacer_repr() {
             for(int l=0;l<getHeight();l++){
                 for (int c=0;c<getWidth();c++){

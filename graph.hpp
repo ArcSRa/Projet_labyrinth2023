@@ -141,7 +141,7 @@ public:
 
     /* Rôle : Reconstruit l'objet Graphe courant à partir d'une cellMap passée en paramètre
        Antécédent : L'objet courant doit être construit
-       Conséquent : 
+       Conséquent : la cellMap graph de l'objet courant est modifiée
     */
     void construire(cellMap graph) {
         setGraph(graph);
@@ -156,12 +156,20 @@ public:
         }
     }
 
+    /* Rôle : Permet d'ajouter un sommet x dans le graph courant
+     * Antécédent : L'objet courant doit être construit
+     * Conséquent : Le nouveau sommet figure dans le graph courant
+     */
     void ajouter_sommet(cell x) {
         if (getGraph().find(x) == getGraph().end()) {
             setVoisins(x,{});
         }
     }
 
+    /* Rôle : Permet de lier deux cellules entre elles dans le graph courant
+     * Antécédent : L'objet courant doit être construit
+     * Conséquent : la cellule x devient la voisine de y
+     */
     void ajouter_arete(cell x, cell y) {
         this->ajouter_sommet(x);
         this->ajouter_sommet(y);
@@ -171,6 +179,10 @@ public:
         }
     }
 
+    /* Rôle : Permet d'obtenir toutes les arêtes du graph courant
+     * Antécédent : L'objet courant doit être construit
+     * Conséquent : retourne un set de pair de cellules (cell) 
+     */
     Aretes aretes() {
         Aretes L;
         for (cellMap::iterator it = getGraph().begin(); it != getGraph().end(); it++) {
@@ -183,7 +195,10 @@ public:
         return L;
     }
     
-    // Antécédent : les sommets x et y existent, sinon on met un assert
+    /* Rôle : Permet de nous renseigner sur la liaison entre les deux cellules dans le graph courant
+     * Antécédent : L'objet courant doit être construit
+     * Conséquent : retourne false si les deux cellules ne sont pas liées et true sinon
+     */
     bool arete(cell x, cell y) {
         return getVoisins(y).find(x) != getVoisins(y).end();
     }
