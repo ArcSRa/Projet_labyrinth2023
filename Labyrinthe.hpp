@@ -75,9 +75,9 @@ class Labyrinthe: public Graphe {
             }
         }
 
-        /* Rôle : permet de remplacer certains caractères de la représentation par des espaces  
+        /* Rôle : Permet de remplacer certains caractères de la représentation par des espaces  
          * Antécédent : L'objet courant doit être construit
-         * Conséquent : 
+         * Conséquent : La représentation du Labyrinthe est modifiée
          */
         void effacer_repr() {
             for(int l=0;l<getHeight();l++){
@@ -87,6 +87,10 @@ class Labyrinthe: public Graphe {
             }
         }
 
+        /* Rôle : Permet d'adapter l'objet Labyrinthe avec l'opérateur '<<'
+         * Antécédent : L'objet courant doit être construit
+         * Conséquent : Affiche sur la sortie standard le graph d'un Labyrinthe
+         */
         friend ostream& operator<<(ostream& os,  Labyrinthe& labyrinthe) {
             labyrinthe.construire_repr();
             for (const vector<char>& ligne : labyrinthe.getRepr()) {
@@ -98,6 +102,10 @@ class Labyrinthe: public Graphe {
             return os;
         }
 
+        /* Rôle : Génère une représentation en chaîne de caractères du graph du Labyrinthe courant
+         * Antécédent : L'objet courant doit être construit
+         * Conséquent : Retourne une chaine de caractères de la représentation du Labyrinthe
+         */
         string construire_repr() {
             string resultat;
             // Les murs
@@ -157,6 +165,11 @@ class Labyrinthe: public Graphe {
             return resultat;
         }
 
+        /* Rôle : Permet d'obtenir un dictionnaire d'adjacence selon la taille d'un Labyrinthe
+         * Antécédent : La hauteur et la longueur doivent être fournis
+         * Conséquent : Retourne une cellMap contenant toutes les pair<cell,cellSet> avec chaque
+         * cellule du Labyrinthe et ses voisins potentiels
+         */
         cellMap dic_adjac(int h, int w) {
             cellMap Dico;
             for (int i=0; i<h; i++){
@@ -176,17 +189,29 @@ class Labyrinthe: public Graphe {
             return Dico;
         }
         
+        /* Rôle : Permet d'obtenir tous les murs d'une cellule passée en paramètre
+         * Antécédent : L'objet doit être construit
+         * Conséquent : Retourne un set d'Arete contenant les murs de la cellule
+         */
         Aretes murs_cellule(cell C) {
             Aretes murs;
             cellSet voisins = voisins_cellule(C);
             for (cell c : voisins) murs.insert(make_pair(C,c));
             return murs;
         }
-            
+
+        /* Rôle : Permet d'obtenir les voisins d'une cellule passée en paramètre
+         * Antécédent : L'objet doit être construit
+         * Conséquent : Retourne un set des cellules voisines
+         */    
         cellSet voisins_cellule(cell C){
             return dic_adjac(this->getWidth(),this->getHeight())[C];
         }
-            
+
+        /* Rôle : Permet d'ouvrir le passage entre deux cellules dans un Labyrinthe
+         * Antécédent : L'objet doit être construit
+         * Conséquent : Ajoute une arête dans le graph du Labyrinthe
+         */    
         void ouvrir_passage(cell x, cell y) {
             cellSet test_x=voisins_cellule(x);
             auto it = test_x.find(y);
@@ -195,6 +220,10 @@ class Labyrinthe: public Graphe {
             }
         }
 
+        /* Rôle : Permet de construire un Labyrinthe selon l'algorithme Aldous Broder
+         * Antécédent : L'objet doit être construit
+         * Conséquent : Retourne une représentation de ce nouveau labyrinthe
+         */ 
         vector<vector<char>> construire_aldous_broder() {
             cellSet visitees; 
             cell celluleCourante(0, 0); 
@@ -216,6 +245,10 @@ class Labyrinthe: public Graphe {
             return repr;
         }
 
+        /* Rôle : Permet d'obtenir tous les murs d'un Labyrinthe
+         * Antécédent : La hauteur et la longueur doivent être fournis
+         * Conséquent : Retourne un set d'Arete contenant tous les murs
+         */ 
         Aretes murs(int h, int w) {
             cellMap Dico = dic_adjac(h,w);
             Aretes m;
@@ -229,6 +262,10 @@ class Labyrinthe: public Graphe {
             return m;
         }
 
+        /* Rôle : Permet de construire un Labyrinthe selon l'algorithme Fusion
+         * Antécédent : L'objet doit être construit
+         * Conséquent : Retourne une représentation de ce nouveau labyrinthe
+         */ 
         void construire_fusion() {
             reset();
             map<cell,int> values;
