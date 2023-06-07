@@ -183,28 +183,37 @@ class Labyrinthe: public Graphe {
         }
 
  Aretes murs(int h, int w) {
-            cellMap Dico = dic_adjac(h,w);
-            Aretes m;
-            for (cellMap::iterator it = Dico.begin(); it != Dico.end(); it++) {
-                cell x = it->first;
-                cellSet V = it->second;
-                for (cell cell : V) {
-                    m.insert(make_pair(x,cell));
-                }
+    Aretes m;
+
+    for (int l = 0; l < h; l++) {
+        for (int c = 0; c < w; c++) {
+            cell cellule(l, c);
+
+            // Vérifier la présence de voisins à droite et en bas
+            if (c + 1 < w) {
+                cell voisinDroite(l, c+1);
+                m.insert(make_pair(cellule, voisinDroite));
             }
-            return m;
+            if (l + 1 < h) {
+                cell voisinBas(l+1, c);
+                m.insert(make_pair(cellule, voisinBas));
+            }
         }
+    }
+
+    return m;
+}
+
    void construire_aldous_broder() {
     reset();
-    //effacer_repr(); 
+   
     cellSet visitees; 
     cell celluleCourante(0, 0); 
     visitees.insert(celluleCourante); 
-    //this->setRepr(1,1,'G');
+   
     int cellulesRestantes = this->getWidth() * this->getHeight() - 1; 
-    set<Aretes> murs;
-    //this->setRepr(1,1,'D');
-    //this->setRepr(repr.size()-2,repr[0].size()-2,'A');
+
+  
     while (cellulesRestantes > 0) {
         cellSet voisins = this->voisins_cellule(celluleCourante); 
 
@@ -239,9 +248,7 @@ void construire_fusion() {
 
     Aretes m = murs(this->getHeight(), this->getWidth());
 
- 
-
-    while (!m.empty() ) {
+    while (!m.empty()) {
         Aretes::iterator it = next(m.begin(), rand() % m.size());
 
         if (values[it->first] != values[it->second]) {
@@ -257,8 +264,8 @@ void construire_fusion() {
         }
 
         m.erase(it);
-     
     }
 }
+
 
 };

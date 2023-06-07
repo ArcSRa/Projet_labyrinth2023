@@ -196,7 +196,7 @@ public:
         add_events(Gdk::KEY_PRESS_MASK);
     //labyrinthe.reset();
    labyrinthe.construire_aldous_broder();
-
+  //labyrinthe.construire_fusion();
     //signal_draw().connect(sigc::mem_fun(*this, &MazeWindow::on_draw));
   
 
@@ -208,7 +208,7 @@ public:
 int main(int argc, char* argv[]) {
   Gtk::Main app(argc, argv);
 
-  MazeWindow window(10,11); 
+  MazeWindow window(17,17); 
 
   Gtk::Main::run(window);
 
