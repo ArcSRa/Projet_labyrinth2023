@@ -13,6 +13,6 @@ link_directories(${GTKMM_LIBRARY_DIRS})
 
 
 
-add_executable(testcpp fenetre_graphique.cpp grille.hpp vue.hpp )
+add_executable(testcpp main.cpp Lab_window.cpp Lab_window.hpp graph.hpp Labyrinthe.hpp )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} ${GTKMM_LIBRARIES})
