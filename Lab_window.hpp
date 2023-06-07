@@ -13,11 +13,16 @@ private:
     int playerX;
     int playerY;
     std::vector<std::vector<bool>> drawnLines;
-
+    int mazeWidth;
+    int mazeHeight;
+    std::string algorithm;
+    
+   
 protected:
     bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr) override;
     bool on_key_press_event(GdkEventKey* event) override;
     void movePlayer(int dx, int dy);
+    void showMenu();
 
 public:
     LabWindow(int mazeWidth, int mazeHeight);
