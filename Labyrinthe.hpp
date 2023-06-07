@@ -1,12 +1,13 @@
 #include "graph.hpp"
-
+#include <queue>
 //static const vector<string> coins = { " ", "═", "║", "╚", "═", "═", "╝", "╩", "║", "╔", "║", "╠", "╗", "╦", "╣", "╬" };
 static const vector<string> coins = { " ", "-", "|", "L", "=", "=", "J", "I", "|", "P", "|", ">", "T", "^", "<", "+" };
 
 
 class Labyrinthe: public Graphe {
     private:
-        
+        int height;
+        int width;
         cellSet ouvertures;
    
     public:
@@ -33,6 +34,8 @@ class Labyrinthe: public Graphe {
 
         Labyrinthe(int w = 0, int h = 0) : Graphe(w,h,false) {
             reset();
+            width=getWidth();
+            height=getHeight();
             setRepr(vector<vector<char>>(2 * getHeight() + 1, vector<char>(2 * getWidth() + 1, ' ')));
             this->effacer_repr();
             this->ouvertures = cellSet();
@@ -267,5 +270,52 @@ void construire_fusion() {
     }
 }
 
+vector<cell> bfs(const Labyrinthe& labyrinthe, const cell& start, const cell& goal) {
+    vector<cell> path;
 
+   
+    // Tableau pour garder la trace des cellules visitées
+    map<cell, cell> parent;
+    parent[start] = start;
+
+    // File d'attente pour le parcours BFS
+    queue<cell> q;
+    q.push(start);
+
+    bool path_found = false;
+
+    while (!q.empty()) {
+        cell current = q.front();
+        q.pop();
+
+        // Si on atteint la cellule objectif, construire le chemin
+        if (current == goal) {
+            path_found = true;
+            break;
+        }
+
+        // Parcourir les voisins de la cellule actuelle
+        for (const auto& neighbor : this->voisins_cellule(current)) {
+            if (!parent.count(neighbor) && this->arete(neighbor,current)) {
+                q.push(neighbor);
+                parent[neighbor] = current;
+            }
+        }
+    }
+
+    // Construire le chemin si trouvé
+    if (path_found) {
+        cell current = goal;
+        while (current != start) {
+            path.push_back(current);
+            current = parent[current];
+        }
+        path.push_back(start);
+        reverse(path.begin(), path.end());
+    } else {
+        cout << "Path not found." << endl;
+    }
+
+    return path;
+}
 };

@@ -1,5 +1,5 @@
 #include "Labyrinthe.hpp"
-//
+#include <vector>
 int main() {
 
 cellMap graph ={
@@ -43,6 +43,15 @@ cellMap graph ={
    // lab.ouvrir_passage(make_pair(1,1),make_pair(3,4));
     //lab.construire_aldous_broder();
     lab.construire_fusion();
+     
+cell start=make_pair(0,0);
+cell goal=make_pair(4,4);
+    Labyrinthe laby(5,5);
+laby.construire_aldous_broder();
+ vector<cell> test=laby.bfs(laby,start,goal);
+  for (const auto& cella : test) {
+        cout << "(" << cella.first << ", " << cella.second << ")" << endl;
+    }
     cout<<lab;
     return 0;
 }

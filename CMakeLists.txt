@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-project(testcpp)
+project(Labyrinthe1)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -13,6 +13,6 @@ link_directories(${GTKMM_LIBRARY_DIRS})
 
 
 
-add_executable(testcpp main.cpp Lab_window.cpp Lab_window.hpp graph.hpp Labyrinthe.hpp )
+add_executable(Labyrinthe1 main.cpp Lab_window.cpp Lab_window.hpp graph.hpp Labyrinthe.hpp )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} ${GTKMM_LIBRARIES})

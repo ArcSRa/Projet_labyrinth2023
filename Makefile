@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named testcpp
+# Target rules for targets named Labyrinthe1
 
 # Build rule for target.
-testcpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testcpp
-.PHONY : testcpp
+Labyrinthe1: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Labyrinthe1
+.PHONY : Labyrinthe1
 
 # fast build rule for target.
-testcpp/fast:
-	$(MAKE) -f CMakeFiles/testcpp.dir/build.make CMakeFiles/testcpp.dir/build
-.PHONY : testcpp/fast
+Labyrinthe1/fast:
+	$(MAKE) -f CMakeFiles/Labyrinthe1.dir/build.make CMakeFiles/Labyrinthe1.dir/build
+.PHONY : Labyrinthe1/fast
 
 Lab_window.o: Lab_window.cpp.o
 
@@ -129,7 +129,7 @@ Lab_window.o: Lab_window.cpp.o
 
 # target to build an object file
 Lab_window.cpp.o:
-	$(MAKE) -f CMakeFiles/testcpp.dir/build.make CMakeFiles/testcpp.dir/Lab_window.cpp.o
+	$(MAKE) -f CMakeFiles/Labyrinthe1.dir/build.make CMakeFiles/Labyrinthe1.dir/Lab_window.cpp.o
 .PHONY : Lab_window.cpp.o
 
 Lab_window.i: Lab_window.cpp.i
@@ -138,7 +138,7 @@ Lab_window.i: Lab_window.cpp.i
 
 # target to preprocess a source file
 Lab_window.cpp.i:
-	$(MAKE) -f CMakeFiles/testcpp.dir/build.make CMakeFiles/testcpp.dir/Lab_window.cpp.i
+	$(MAKE) -f CMakeFiles/Labyrinthe1.dir/build.make CMakeFiles/Labyrinthe1.dir/Lab_window.cpp.i
 .PHONY : Lab_window.cpp.i
 
 Lab_window.s: Lab_window.cpp.s
@@ -147,7 +147,7 @@ Lab_window.s: Lab_window.cpp.s
 
 # target to generate assembly for a file
 Lab_window.cpp.s:
-	$(MAKE) -f CMakeFiles/testcpp.dir/build.make CMakeFiles/testcpp.dir/Lab_window.cpp.s
+	$(MAKE) -f CMakeFiles/Labyrinthe1.dir/build.make CMakeFiles/Labyrinthe1.dir/Lab_window.cpp.s
 .PHONY : Lab_window.cpp.s
 
 main.o: main.cpp.o
@@ -156,7 +156,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/testcpp.dir/build.make CMakeFiles/testcpp.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/Labyrinthe1.dir/build.make CMakeFiles/Labyrinthe1.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -165,7 +165,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/testcpp.dir/build.make CMakeFiles/testcpp.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/Labyrinthe1.dir/build.make CMakeFiles/Labyrinthe1.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -174,7 +174,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/testcpp.dir/build.make CMakeFiles/testcpp.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/Labyrinthe1.dir/build.make CMakeFiles/Labyrinthe1.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -185,7 +185,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... testcpp"
+	@echo "... Labyrinthe1"
 	@echo "... Lab_window.o"
 	@echo "... Lab_window.i"
 	@echo "... Lab_window.s"

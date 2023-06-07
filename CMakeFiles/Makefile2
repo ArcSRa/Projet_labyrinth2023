@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/testcpp.dir/all
+all: CMakeFiles/Labyrinthe1.dir/all
 
 .PHONY : all
 
@@ -63,36 +63,36 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/testcpp.dir/clean
+clean: CMakeFiles/Labyrinthe1.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/testcpp.dir
+# Target rules for target CMakeFiles/Labyrinthe1.dir
 
 # All Build rule for target.
-CMakeFiles/testcpp.dir/all:
-	$(MAKE) -f CMakeFiles/testcpp.dir/build.make CMakeFiles/testcpp.dir/depend
-	$(MAKE) -f CMakeFiles/testcpp.dir/build.make CMakeFiles/testcpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/CMakeFiles --progress-num=1,2,3 "Built target testcpp"
-.PHONY : CMakeFiles/testcpp.dir/all
+CMakeFiles/Labyrinthe1.dir/all:
+	$(MAKE) -f CMakeFiles/Labyrinthe1.dir/build.make CMakeFiles/Labyrinthe1.dir/depend
+	$(MAKE) -f CMakeFiles/Labyrinthe1.dir/build.make CMakeFiles/Labyrinthe1.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/CMakeFiles --progress-num=1,2,3 "Built target Labyrinthe1"
+.PHONY : CMakeFiles/Labyrinthe1.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/testcpp.dir/rule: cmake_check_build_system
+CMakeFiles/Labyrinthe1.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/CMakeFiles 3
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/testcpp.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Labyrinthe1.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/CMakeFiles 0
-.PHONY : CMakeFiles/testcpp.dir/rule
+.PHONY : CMakeFiles/Labyrinthe1.dir/rule
 
 # Convenience name for target.
-testcpp: CMakeFiles/testcpp.dir/rule
+Labyrinthe1: CMakeFiles/Labyrinthe1.dir/rule
 
-.PHONY : testcpp
+.PHONY : Labyrinthe1
 
 # clean rule for target.
-CMakeFiles/testcpp.dir/clean:
-	$(MAKE) -f CMakeFiles/testcpp.dir/build.make CMakeFiles/testcpp.dir/clean
-.PHONY : CMakeFiles/testcpp.dir/clean
+CMakeFiles/Labyrinthe1.dir/clean:
+	$(MAKE) -f CMakeFiles/Labyrinthe1.dir/build.make CMakeFiles/Labyrinthe1.dir/clean
+.PHONY : CMakeFiles/Labyrinthe1.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

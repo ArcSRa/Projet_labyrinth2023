@@ -1,5 +1,7 @@
 #include "Lab_window.hpp"
 #include <iostream>
+#include <vector>
+using namespace std;
 LabWindow::LabWindow(int we, int he)  {
      set_title("Labyrinthe");
       
@@ -30,17 +32,17 @@ void LabWindow::showMenu() {
     // Créer des widgets pour les options du menu
     Gtk::Label label_width("Largeur du labyrinthe :");
     Gtk::Entry entry_width;
-    entry_width.set_text(std::to_string(mazeWidth));
+    entry_width.set_text(to_string(mazeWidth));
 
     Gtk::Label label_height("Hauteur du labyrinthe :");
     Gtk::Entry entry_height;
-    entry_height.set_text(std::to_string(mazeHeight));
+    entry_height.set_text(to_string(mazeHeight));
 
     Gtk::Label label_algorithm("Algorithme de construction :");
     Gtk::ComboBoxText combo_algorithm;
     combo_algorithm.append("Aldous-Broder", "aldous-broder");
     combo_algorithm.append("Fusion", "fusion");
-    combo_algorithm.set_active_id(algorithm);
+    combo_algorithm.set_active_id(" ");
 
     // Ajouter les widgets à la boîte de dialogue
     Gtk::Box* content_area = dialog.get_content_area();
@@ -54,11 +56,25 @@ void LabWindow::showMenu() {
     dialog.show_all();
 
     int result = dialog.run();
+if(stoi(entry_width.get_text())==0 || stoi(entry_height.get_text())==0)
+{
+          Gtk::MessageDialog dialog(*this, "Valeurs incorrecte", false, Gtk::MESSAGE_INFO);
+                dialog.set_secondary_text("Si vous choisissez une taille nulle, le labyrinthe le seras aussi");
+                dialog.run();
 
-    if (result == Gtk::RESPONSE_OK) {
+}
+if(combo_algorithm.get_active_id()!="Fusion" and combo_algorithm.get_active_id()!="Aldous-Broder")
+{
+
+  Gtk::MessageDialog dialog(*this, "Algorithme incorrect", false, Gtk::MESSAGE_INFO);
+          
+                dialog.run();
+}
+
+    if (result == Gtk::RESPONSE_OK and stoi(entry_width.get_text())!=0 and stoi(entry_height.get_text())!=0) {
       // Récupérer les valeurs saisies
-      mazeWidth = std::stoi(entry_width.get_text());
-      mazeHeight = std::stoi(entry_height.get_text());
+      mazeWidth = stoi(entry_width.get_text());
+      mazeHeight = stoi(entry_height.get_text());
       algorithm = combo_algorithm.get_active_id();
       
       labyrinthe=Labyrinthe(mazeWidth,mazeHeight);
@@ -108,12 +124,12 @@ bool LabWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)  {
      double x1 = key.second * cell_width;
      
     // Afficher la clé (cellule)
-   // cout << "Clé : (" << key.first << ", " << key.second << ")" << endl;
+   // //cout << "Clé : (" << key.first << ", " << key.second << ")" << endl;
     
     // Afficher les valeurs (voisins de la cellule)
-    cout << "Voisins :" << endl;
+    //cout << "Voisins :" << endl;
     for (const cell& neighbor : values) {
-        cout << " (" << neighbor.first << ", " << neighbor.second << ")\n"; // voisin avec passage
+        //cout << " (" << neighbor.first << ", " << neighbor.second << ")\n"; // voisin avec passage
         for (const auto& voisin : voisins) {
                double y2 = voisin.first * cell_height;
                 double x2 = voisin.second * cell_width;
@@ -127,7 +143,7 @@ bool LabWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)  {
                      cr->move_to(x1 , y1  );
                      cr->line_to(x1+ cell_width, y1 );
                      cr->stroke();
-                    // std::cout << "Mur vers le haut (rouge)" << std::endl;
+                    // cout << "Mur vers le haut (rouge)" << endl;
                      // drawnLines[key.second][key.first] = true;
                  }
 
@@ -136,7 +152,7 @@ bool LabWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)  {
                     cr->move_to(x1 , y1);
                     cr->line_to(x1 , y1 + cell_height);
                     cr->stroke();
-                    std::cout << "Mur vers la gauche (bleu)" << std::endl;
+                    //cout << "Mur vers la gauche (bleu)" << endl;
                   //   drawnLines[key.second][key.first] = true;
                 }
 
@@ -145,7 +161,7 @@ bool LabWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)  {
                     cr->move_to(x1 , y1 + cell_height);
                     cr->line_to(x1 + cell_width, y1 + cell_height);
                     cr->stroke();
-                    std::cout << "Mur vers le bas (vert)" << std::endl;
+                    //cout << "Mur vers le bas (vert)" << endl;
                     //  drawnLines[key.second][key.first] = true;
                 }
 
@@ -154,7 +170,7 @@ bool LabWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)  {
                     cr->move_to(x1 + cell_width, y1 );
                     cr->line_to(x1 + cell_width, y1 + cell_height);
                     cr->stroke();
-                    std::cout << "Mur vers la droite (bleu cyan)" << std::endl;
+                    //cout << "Mur vers la droite (bleu cyan)" << endl;
                       //drawnLines[key.second][key.first] = true;
                 }
 
@@ -178,12 +194,18 @@ bool LabWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)  {
         cr->set_source_rgb(0.0, 0.0, 0.0);
          
 }
-
+vector<cell> test=labyrinthe.bfs(labyrinthe,make_pair(0,0),make_pair(height-1,width-1));
+  for (const auto& cella : test) {
+    cr->set_source_rgb(0.0, 1.0, 1.0);
+        cout << "(" << cella.first << ", " << cella.second << ")" << endl;
+         int y = cella.first *cell_height ;
+            int x = cella.second * cell_width;
+            cr->rectangle(x, y, cell_width-10, cell_height-10);
+            cr->fill();
+    }
 cout << endl;
-cout<<labyrinthe<<endl;
+//cout<<labyrinthe<<endl;
    
-
-     
    // Dessiner le joueur
         cr->set_source_rgb(0.0, 0.0, 1.0); // Rouge
         const double playerX1 = playerX * cell_width;
@@ -234,7 +256,7 @@ void LabWindow::movePlayer(int dx, int dy) {
             
             // Vérifier si le joueur a atteint la sortie
             if (playerX == width - 1 && playerY == height - 1) {
-                Gtk::MessageDialog dialog(*this, "Victoire !", false, Gtk::MESSAGE_INFO);
+                Gtk::MessageDialog dialog(*this, "Victoire ! Vous avez 20/20 !", false, Gtk::MESSAGE_INFO);
                 dialog.set_secondary_text("Vous avez atteint la sortie du labyrinthe !");
                 dialog.run();
             }
