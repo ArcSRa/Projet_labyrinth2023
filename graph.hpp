@@ -5,6 +5,21 @@
 #include <algorithm>
 
 using namespace std;
+
+/* Création d'alias pour raccourcir les types utilisés :
+ *
+ * cell : correspond à une cellule représenté par une paire d'entiers correspondant 
+ * aux coordonnées (ligne,colonne) de la cellule
+ * 
+ * cellSet : correspond à une liste de cellules représenté par un set de cell (cellule)
+ * 
+ * cellMap : correspond à un graph de cellules avec les cellules voisines représentés par 
+ * une map dont les clés sont des cell (cellule) et les valeurs sont des cellSet (liste de cell)
+ * 
+ * Arete : correspond à une arête dans un graphe représenté par une paire de cell (cellule)
+ * 
+ * Aretes : correspond à un ensemble d'arêtes représenté par un set d'Arete
+ */
 using cell = pair<int,int>;
 using cellSet = set<cell>;
 using cellMap = map<cell,cellSet>;
@@ -15,43 +30,73 @@ static constexpr cell None = make_pair(-1, -1);
 
 class Graphe {
 private:
+/* Attributs privés de la classe Graphe :
+     * graph : correspond à la représentation sous forme d'une cellMap d'un graphe
+
+     * width : correspond à la taille en longueur d'un graphe
+
+     * height : correspond à la taille en hauteur d'un graphe
+
+     * oriented : correspond à l'orientation des arêtes d'un graphe.
+     *    à false : le graphe n'est pas orienté, donc on peut circuler dans les deux sens 
+     *    entre deux cellules liées
+     *    à true : le graphe est orienté, donc le passage d'une cellule à une autre 
+     *    n'implique pas nécessairement un passage dans le sens inverse
+     */
     cellMap graph;
     int width;
     int height;
     bool oriented;
 
 public:
-    
+    //Constructeur de la classe Graphe
     Graphe(int w, int h, bool oriented = true) : width(w), height(h), oriented(oriented) {}
-
+/* Rôle : Retourne la cellMap graph de l'objet courant
+     * Antécédent : L'objet courant doit être construit
+     */
     cellMap& getGraph(){
         return this->graph;
     }
 
+ /* Rôle : Retourne la taille en longueur de l'objet courant
+     * Antécédent : L'objet courant doit être construit
+     */
     int getWidth(){
         return this->width;
     }
-
+/* Rôle : Retourne la taille en hauteur de l'objet courant
+     * Antécédent : L'objet courant doit être construit
+     */
     int getHeight(){
         return this->height;
     }
-
+/* Rôle : Retourne la valeur booléenne de l'orientation de l'objet courant
+     * Antécédent : L'objet courant doit être construit
+     */
     bool getOrient(){
         return this->oriented;
     }
-
+/* Rôle : Retourne la liste des voisins accessibles en partant de la cellule x de l'objet courant
+     * Antécédent : L'objet courant doit être construit
+     */
     cellSet& getVoisins(cell x) {
         return this->graph[x];
     }
-
+/* Rôle : Modifie la cellMap graph de l'objet courant par celle passée en paramètre
+     * Antécédent : L'objet courant doit être construit
+     */
     void setGraph(cellMap map) {
         this->graph=map;
     }
-
+/* Rôle : Modifie la taille en longueur de l'objet courant par celle passée en paramètre
+     * Antécédent : L'objet courant doit être construit
+     */
     void setWidth(int w){
         this->width=w;
     }
-
+  /* Rôle : Modifie la taille en hauteur de l'objet courant par celle passée en paramètre
+     * Antécédent : L'objet courant doit être construit
+     */
     void setHeight(int h){
         this->height=h;
     }
