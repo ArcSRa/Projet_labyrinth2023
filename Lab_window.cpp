@@ -165,7 +165,7 @@ if (showSolution) {
         for (const auto& cella : solution) {
             int y = cella.first * cell_height;
             int x = cella.second * cell_width;
-            cr->rectangle(x+x/2, y+y/2, cell_width/2, cell_height/2);
+            cr->rectangle(x+cell_width/4, y+cell_height/4, cell_width/2, cell_height/2);
             cr->fill();
         }
     }
