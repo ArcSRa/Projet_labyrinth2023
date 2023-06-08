@@ -20,6 +20,7 @@ private:
     Gtk::ToggleButton toggleButton;
     Gtk::Button bClose;
     Gtk::Box box;
+    
 protected:
     bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr) override;
     bool on_key_press_event(GdkEventKey* event) override;
@@ -28,6 +29,7 @@ protected:
     void on_toggle_button_clicked();
     void close();
     void afficher_j(const Cairo::RefPtr<Cairo::Context>& cr);
+ 
 public:
     LabWindow(int mazeWidth, int mazeHeight);
 };

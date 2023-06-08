@@ -2,8 +2,10 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+
 LabWindow::LabWindow(int we, int he):bClose("Quitter") {
     set_title("Labyrinthe");
+    
     set_default_size(1000, 600);
     set_position(Gtk::WIN_POS_CENTER);
     override_background_color(Gdk::RGBA("white"));
@@ -19,11 +21,9 @@ LabWindow::LabWindow(int we, int he):bClose("Quitter") {
   
  
     bClose.signal_clicked().connect(sigc::mem_fun(*this, &LabWindow::close));
- fixedContainer->set_size_request(15, 15);
-    fixedContainer->put(bClose, 700, 350);
-   const Cairo::RefPtr<Cairo::Context>& cr = get_window()->create_cairo_context();
-   on_draw1(cr);
-  afficher_j(cr);
+    fixedContainer->set_size_request(20, 20);
+    fixedContainer->put(bClose, 880, 480);
+
     add_events(Gdk::KEY_PRESS_MASK);
     show_all();
 }
@@ -89,12 +89,14 @@ void LabWindow::showMenu() {
     }
 }
 void LabWindow::close () { Gtk :: Window :: close (); }
-bool LabWindow::on_draw1(const Cairo::RefPtr<Cairo::Context>& cr) {
+bool LabWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
     width = mazeWidth;
     height = mazeHeight;
-
-    const double cell_width = 600.0 / width;
-    const double cell_height = 600.0 / height;
+     Gtk::Allocation allocation = get_allocation();
+    const int width1 = allocation.get_width();
+    const int height1 = allocation.get_height();
+    const double cell_width = (width1 -200) / width;
+    const double cell_height = (height1 -100) / height;
 
     labyrinthe.construire_repr();
     const vector<vector<char>>& repre = labyrinthe.getRepr();
@@ -105,7 +107,7 @@ bool LabWindow::on_draw1(const Cairo::RefPtr<Cairo::Context>& cr) {
 
     cr->set_source_rgb(0.0, 0.0, 0.0);
     cr->set_line_width(1.0);
-    cr->rectangle(0, 0, 600, 600);
+    cr->rectangle(0, 0, width1-200, height1-100);
     cr->stroke();
     cr->move_to(0, 0);
 
@@ -162,23 +164,29 @@ bool LabWindow::on_draw1(const Cairo::RefPtr<Cairo::Context>& cr) {
  
 
    
-        cr->set_font_size(14.0);
-    cr->move_to(720, 370);
+        cr->set_font_size(9.5);
+    cr->move_to(width1-90, height1-100);
     cr->set_source_rgb(0.0, 0.0, 0.0);
     cr->show_text("Fermer");
+
+
+ afficher_j(cr);
     return true;
 }
 void LabWindow::afficher_j(const Cairo::RefPtr<Cairo::Context>& cr)
 { // Dessiner le joueur
-    const double cell_width = 600.0 / width;
-    const double cell_height = 600.0 / height;
+     Gtk::Allocation allocation = get_allocation();
+    const int width1 = allocation.get_width();
+    const int height1 = allocation.get_height();
+    const double cell_width = (width1 -200) / width;
+    const double cell_height = (height1 -100) / height;
     cr->set_source_rgb(0.0, 0.0, 1.0); // Rouge
     const double playerX1 = playerX * cell_width;
     const double playerY1 = playerY * cell_height;
     cr->rectangle(playerX1, playerY1, cell_width, cell_height);
     cr->fill();
-    cr->set_font_size(14.0);
-    cr->move_to(620, 250);
+    cr->set_font_size(10.0);
+    cr->move_to(width1-200, height1-150);
     cr->set_source_rgb(0.0, 0.0, 0.0);
     cr->show_text("Appuyer sur Espace pour voir la solution");
 if (showSolution) {
@@ -192,9 +200,9 @@ if (showSolution) {
             cr->fill();
         }
     }}
+
 bool LabWindow::on_key_press_event(GdkEventKey* event)  {
-    const Cairo::RefPtr<Cairo::Context>& cr = get_window()->create_cairo_context();
-  afficher_j(cr);
+
   switch (event->keyval) {
     case GDK_KEY_Up:
       movePlayer(0, -1);
