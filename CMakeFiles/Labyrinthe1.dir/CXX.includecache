@@ -11,6 +11,8 @@ Lab_window.hpp
 /home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/Lab_window.hpp
 iostream
 -
+vector
+-
 
 /home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/Lab_window.hpp
 gtkmm.h
@@ -19,10 +21,14 @@ vector
 -
 Labyrinthe.hpp
 /home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/Labyrinthe.hpp
+gtkmm/button.h
+-
 
 /home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/Labyrinthe.hpp
 graph.hpp
 /home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/graph.hpp
+queue
+-
 
 /home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/graph.hpp
 iostream
@@ -35,10 +41,6 @@ vector
 -
 algorithm
 -
-
-/home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/main.cpp
-Lab_window.hpp
-/home/user/Documents/Projet_labyrinthe/Projet_labyrinth2023/Lab_window.hpp
 
 /usr/include/atk-1.0/atk/atk-enum-types.h
 atk/atkversion.h

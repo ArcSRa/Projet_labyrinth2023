@@ -100,23 +100,36 @@ public:
     void setHeight(int h){
         this->height=h;
     }
-
+ /* Rôle : Modifie la valeur booléenne de l'orientation de l'objet courant par celle passée en paramètre
+     * Antécédent : L'objet courant doit être construit
+     */
     void setOrient(bool o){
         this->oriented=o;
     }
-
+/* Rôle : Modifie la liste des voisins accessibles en partant de la cellule x de l'objet courant 
+     * par celle passée en paramètre
+     * Antécédent : L'objet courant doit être construit
+     */
     void setVoisins(cell x, cellSet V) {
         this->graph[x]=V;
     }
-
+   /* Rôle : Modifie la liste des voisins accessibles en partant de la cellule x de l'objet courant 
+     * en y ajoutant uniquement une cellule voisine
+     * Antécédent : L'objet courant doit être construit
+     */
     void insertVoisins(cell x, cell v){
         this->graph[x].insert(v);
     }
-
+  /* Rôle : Supprime tous les éléments de la cellMap graph de l'objet courant
+     * Antécédent : L'objet courant doit être construit
+     */
     void clearGraph() {
         this->graph.clear();
     }
-
+  /* Rôle : Reconstruit l'objet Graphe courant à partir d'une cellMap passée en paramètre
+       Antécédent : L'objet courant doit être construit
+       Conséquent : la cellMap graph de l'objet courant est modifiée
+    */
     void construire(cellMap graph) {
         setGraph(graph);
         setWidth(0);
@@ -129,13 +142,19 @@ public:
             setHeight(max(getHeight(), y + 1));
         }
     }
-
+    /* Rôle : Permet d'ajouter un sommet x dans le graph courant
+     * Antécédent : L'objet courant doit être construit
+     * Conséquent : Le nouveau sommet figure dans le graph courant
+     */
     void ajouter_sommet(cell x) {
         if (getGraph().find(x) == getGraph().end()) {
             setVoisins(x,{});
         }
     }
-
+    /* Rôle : Permet de lier deux cellules entre elles dans le graph courant
+     * Antécédent : L'objet courant doit être construit
+     * Conséquent : la cellule x devient la voisine de y
+     */
     void ajouter_arete(cell x, cell y) {
         this->ajouter_sommet(x);
         this->ajouter_sommet(y);
@@ -144,7 +163,10 @@ public:
             insertVoisins(y,x);
         }
     }
-
+    /* Rôle : Permet d'obtenir toutes les arêtes du graph courant
+     * Antécédent : L'objet courant doit être construit
+     * Conséquent : retourne un set de pair de cellules (cell) 
+     */
     Aretes aretes() {
         Aretes L;
         for (cellMap::iterator it = getGraph().begin(); it != getGraph().end(); it++) {
@@ -157,7 +179,10 @@ public:
         return L;
     }
     
-    // Antécédent : les sommets x et y existent, sinon on met un assert
+    /* Rôle : Permet de nous renseigner sur la liaison entre les deux cellules dans le graph courant
+     * Antécédent : L'objet courant doit être construit
+     * Conséquent : retourne false si les deux cellules ne sont pas liées et true sinon
+     */
     bool arete(cell x, cell y) {
         return getVoisins(y).find(x) != getVoisins(y).end();
     }
